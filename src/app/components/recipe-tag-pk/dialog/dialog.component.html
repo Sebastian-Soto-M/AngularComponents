@@ -1,0 +1,51 @@
+<div matDialogTitle>
+  <h2>Recipe Tags</h2>
+  <mat-form-field appearance="fill" fxFill="100%">
+    <mat-label>Search</mat-label>
+    <input
+      [(ngModel)]="searchText"
+      [disabled]="data.length === 0"
+      matInput
+      type="text"
+    />
+    <mat-icon matSuffix>search</mat-icon>
+  </mat-form-field>
+</div>
+
+<mat-dialog-content>
+  <mat-list>
+    <div
+      *ngFor="
+        let rt of data | tagFilter: searchText;
+        let i = index;
+        first as first
+      "
+    >
+      <div *ngIf="!searchText && (i === 0 || data[i - 1].typeId !== rt.typeId)">
+        <div matSubheader>{{ rt.typeName | titlecase }}</div>
+        <mat-divider></mat-divider>
+      </div>
+      <mat-list-item>
+        <mat-icon matListIcon color="primary">local_offer</mat-icon>
+        <mat-chip-list [selectable]="false" *ngIf="searchText">
+          <mat-chip [disableRipple]="true" color="primary" selected>
+            {{ rt.typeName | titlecase }}
+          </mat-chip>
+        </mat-chip-list>
+        <button mat-icon-button (click)="addTag(rt)">
+          <mat-icon color="accent">add</mat-icon>
+        </button>
+        <div matLine>
+          {{ rt.name }}
+        </div>
+        <div matLine>
+          {{ rt.description }}
+        </div>
+      </mat-list-item>
+    </div>
+  </mat-list>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-raised-button color="accent">Add Tags</button>
+</mat-dialog-actions>

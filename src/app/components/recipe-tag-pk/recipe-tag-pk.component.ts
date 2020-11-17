@@ -1,0 +1,43 @@
+import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { BehaviorSubject } from 'rxjs';
+import { IRecipeTag } from 'src/app/entities/recipe-tag.model';
+import { RecipeTagService } from 'src/app/service/recipe-tag.service';
+import { DialogComponent } from './dialog/dialog.component';
+
+@Component({
+  selector: 'app-recipe-tag-pk',
+  templateUrl: './recipe-tag-pk.component.html',
+  styleUrls: ['./recipe-tag-pk.component.scss'],
+})
+export class RecipeTagPkComponent implements OnInit {
+  reloadTagList$ = new BehaviorSubject<boolean>(true);
+  tagList$: IRecipeTag[];
+
+  panelOpenState = false;
+
+  constructor(public dialog: MatDialog, private service: RecipeTagService) {}
+
+  ngOnInit() {
+    this.reloadTagList$.subscribe((_) => {
+      this.service.queryAll().subscribe((response) => {
+        this.tagList$ = response.body.sort((a, b) =>
+          a.typeId > b.typeId ? 1 : -1
+        );
+      });
+    });
+  }
+
+  open() {
+    const dialogRef = this.dialog.open(DialogComponent, {
+      minWidth: '60%',
+      disableClose: true,
+      data: this.tagList$,
+    });
+    dialogRef.afterClosed().subscribe((res) => console.log(res));
+  }
+
+  reload(): void {
+    this.reloadTagList$.next(false);
+  }
+}

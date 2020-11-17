@@ -1,4 +1,5 @@
 {
   "/api/*": "/$1",
-  "/recipe-tag/all": "/recipe-tag"
+  "/recipe-tags": "/recipe-tag",
+  "/recipe-tags/all": "/recipe-tag"
 }

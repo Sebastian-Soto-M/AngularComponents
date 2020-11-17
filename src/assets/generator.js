@@ -1,6 +1,8 @@
 "use strict";
 const faker = require("faker");
 
+const dbSize = 30;
+
 const estatus = {
   ACTIVE: "Active",
   INACTIVE: "Inactive",
@@ -16,25 +18,25 @@ function randStatus() {
 const tagTypes = [
   {
     id: 1,
-    name: "type1",
+    name: "salty",
     description: "description description description",
     status: "ACTIVE",
   },
   {
     id: 2,
-    name: "type2",
+    name: "sweet",
     description: "description description description",
     status: "ACTIVE",
   },
   {
     id: 3,
-    name: "type3",
+    name: "pet food",
     description: "description description description",
     status: "ACTIVE",
   },
   {
     id: 4,
-    name: "type4",
+    name: "origin",
     description: "description description description",
     status: "ACTIVE",
   },
@@ -48,8 +50,6 @@ function randTagType() {
 let db = {
   "recipe-tag": [],
 };
-
-const dbSize = 20;
 
 for (let i = 0; i < dbSize; i++) {
   const type = randTagType();
