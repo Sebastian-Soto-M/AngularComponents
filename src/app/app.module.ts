@@ -17,17 +17,26 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HomeComponent } from './layout/views/home/home.component';
+import { RecipeTagPickerComponent } from './layout/views/recipe-tag-picker/recipe-tag-picker.component';
+import { IngredientTagPickerComponent } from './layout/views/ingredient-tag-picker/ingredient-tag-picker.component';
+import { RecipeTagService } from './service/recipe-tag.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavigationComponent,
-    AddressComponent
+    AddressComponent,
+    HomeComponent,
+    RecipeTagPickerComponent,
+    IngredientTagPickerComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    HttpClientModule,
     LayoutModule,
     MatToolbarModule,
     MatButtonModule,
@@ -38,9 +47,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     MatRadioModule,
     MatCardModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [RecipeTagService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

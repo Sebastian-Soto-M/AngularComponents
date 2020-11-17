@@ -7,7 +7,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "create_db": "node ./src/assets/generator.js > ./src/assets/database.json",
+    "backend": "json-server ./src/assets/database.json --routes ./src/assets/routes.json"
   },
   "private": true,
   "dependencies": {
