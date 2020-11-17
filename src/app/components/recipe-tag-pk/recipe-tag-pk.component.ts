@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatExpansionPanel } from '@angular/material/expansion';
 import { BehaviorSubject } from 'rxjs';
 import { IRecipeTag } from 'src/app/entities/recipe-tag.model';
 import { RecipeTagService } from 'src/app/service/recipe-tag.service';
@@ -20,6 +21,8 @@ export class RecipeTagPkComponent implements OnInit {
   tagList$: IRecipeTag[];
   optionList: IRecipeTag[];
   selectionList: IRecipeTag[] = [];
+
+  @ViewChild('panel') panel!: MatExpansionPanel;
 
   panelOpenState = false;
 
@@ -44,16 +47,42 @@ export class RecipeTagPkComponent implements OnInit {
         selections: this.selectionList,
       },
     });
-    dialogRef.afterClosed().subscribe((res: boolean) => {
-      if (res) {
-        console.warn(this.selectionList);
+    dialogRef.beforeClosed().subscribe((selections: IRecipeTag[]) => {
+      if (selections !== undefined && selections.length !== 0) {
+        this.selectionList = selections;
       } else {
-        console.warn('there are no selections');
+        this.closePanel();
       }
     });
   }
 
   reload(): void {
     this.reloadTagList$.next(false);
+  }
+
+  remove(index: number): void {
+    this.selectionList.splice(index, 1);
+    if (this.selectionList.length === 0) {
+      this.closePanel();
+    }
+  }
+
+  checkSelections(): void {
+    if (this.selectionList.length === 0) {
+      this.closePanel();
+      this.open();
+    } else {
+      this.panelOpenState = true;
+    }
+  }
+
+  private closePanel(): void {
+    this.panel.close();
+    this.panelOpenState = false;
+  }
+
+  private openPanel(): void {
+    this.panel.open();
+    this.panelOpenState = true;
   }
 }

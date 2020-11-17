@@ -11,7 +11,8 @@ import { DialogData } from '../recipe-tag-pk.component';
 export class DialogComponent implements OnInit {
   searchText = '';
   options: IRecipeTag[];
-  selections: IRecipeTag[];
+  initialSelections: IRecipeTag[];
+  newSelections: IRecipeTag[];
 
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
@@ -19,18 +20,22 @@ export class DialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.selections = this.data.selections;
-    this.options = this._filterSelections(this.data.options);
+    this.newSelections = [];
+    this.initialSelections = this.data.selections;
+    this.options = this._filterSelections(
+      this.data.options,
+      this.initialSelections
+    );
   }
 
   addTag(rt: IRecipeTag): void {
-    this.selections.push(rt);
-    this.options = this._filterSelections(this.options);
+    this.newSelections.push(rt);
+    this.options = this._filterSelections(this.options, this.newSelections);
   }
 
-  private _filterSelections(data: IRecipeTag[]): IRecipeTag[] {
-    const duplicates = this._getDuplicates(data);
-    return data.filter((x) => {
+  private _filterSelections(a: IRecipeTag[], b: IRecipeTag[]): IRecipeTag[] {
+    const duplicates = this._getDuplicates(a, b);
+    return a.filter((x) => {
       for (const dup of duplicates) {
         if (dup.id === x.id) {
           return false;
@@ -40,17 +45,21 @@ export class DialogComponent implements OnInit {
     });
   }
 
-  private _getDuplicates(data: IRecipeTag[]): IRecipeTag[] {
-    const lookup = data.concat(this.selections).reduce((a, e) => {
-      if (e.id !== undefined) {
-        a[e.id] = ++a[e.id] || 0;
+  private _getDuplicates(a: IRecipeTag[], b: IRecipeTag[]): IRecipeTag[] {
+    const lookup = a.concat(b).reduce((c, d) => {
+      if (d.id !== undefined) {
+        c[d.id] = ++c[d.id] || 0;
       }
-      return a;
+      return c;
     }, {});
-    return data.filter((e) => {
+    return a.filter((e) => {
       if (e.id !== undefined) {
         return lookup[e.id];
       }
     });
+  }
+
+  protected getSelections() {
+    return this.initialSelections.concat(this.newSelections);
   }
 }

@@ -1,3 +1,4 @@
+<!-- If there are no options, tell the user -->
 <div *ngIf="options !== null && options.length > 0; else noOptions">
   <div matDialogTitle>
     <h2>Recipe Tags</h2>
@@ -50,8 +51,12 @@
     </mat-list>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close="false">Cancel</button>
-    <button mat-raised-button color="accent" mat-dialog-close="true">
+    <button mat-button [mat-dialog-close]="[]">Cancel</button>
+    <button
+      mat-raised-button
+      color="accent"
+      [mat-dialog-close]="getSelections()"
+    >
       Add Tags
     </button>
   </mat-dialog-actions>

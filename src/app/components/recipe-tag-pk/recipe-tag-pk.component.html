@@ -1,4 +1,35 @@
-<button mat-raised-button color="accent" (click)="open()">
-  <mat-icon>local_offer</mat-icon>
-  Recipe Tag
-</button>
+<div fxLayout="row">
+  <mat-expansion-panel
+    fxFlex="100%"
+    #panel
+    (opened)="checkSelections()"
+    (closed)="panelOpenState = false"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title *ngIf="!panelOpenState">Recipe Tags</mat-panel-title>
+      <mat-panel-title *ngIf="panelOpenState">
+        <button mat-mini-fab color="accent" class="corner-add" (click)="open()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-panel-title>
+      <mat-panel-description style="justify-content: end">
+        {{ this.selectionList.length }}
+        <mat-icon>local_offer</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <div *ngIf="selectionList.length > 0">
+      <mat-chip-list #chipList aria-label="Recipe Tag selections">
+        <mat-chip
+          *ngFor="let tag of selectionList; let i = index"
+          [selectable]="false"
+          [selected]="true"
+          [removable]="true"
+          (removed)="remove(i)"
+        >
+          {{ tag.name }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+    </div>
+  </mat-expansion-panel>
+</div>
