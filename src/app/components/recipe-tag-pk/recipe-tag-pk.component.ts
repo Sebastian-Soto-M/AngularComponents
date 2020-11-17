@@ -5,6 +5,11 @@ import { IRecipeTag } from 'src/app/entities/recipe-tag.model';
 import { RecipeTagService } from 'src/app/service/recipe-tag.service';
 import { DialogComponent } from './dialog/dialog.component';
 
+export interface DialogData {
+  options: IRecipeTag[];
+  selections: IRecipeTag[];
+}
+
 @Component({
   selector: 'app-recipe-tag-pk',
   templateUrl: './recipe-tag-pk.component.html',
@@ -13,6 +18,8 @@ import { DialogComponent } from './dialog/dialog.component';
 export class RecipeTagPkComponent implements OnInit {
   reloadTagList$ = new BehaviorSubject<boolean>(true);
   tagList$: IRecipeTag[];
+  optionList: IRecipeTag[];
+  selectionList: IRecipeTag[];
 
   panelOpenState = false;
 
@@ -24,6 +31,7 @@ export class RecipeTagPkComponent implements OnInit {
         this.tagList$ = response.body.sort((a, b) =>
           a.typeId > b.typeId ? 1 : -1
         );
+        this.optionList = this.tagList$;
       });
     });
   }
@@ -31,8 +39,10 @@ export class RecipeTagPkComponent implements OnInit {
   open() {
     const dialogRef = this.dialog.open(DialogComponent, {
       minWidth: '60%',
-      disableClose: true,
-      data: this.tagList$,
+      data: {
+        options: this.optionList,
+        selections: this.selectionList,
+      },
     });
     dialogRef.afterClosed().subscribe((res) => console.log(res));
   }
