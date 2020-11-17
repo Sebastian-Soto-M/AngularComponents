@@ -50,8 +50,10 @@
     </mat-list>
   </mat-dialog-content>
   <mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close>Cancel</button>
-    <button mat-raised-button color="accent">Add Tags</button>
+    <button mat-button mat-dialog-close="false">Cancel</button>
+    <button mat-raised-button color="accent" mat-dialog-close="true">
+      Add Tags
+    </button>
   </mat-dialog-actions>
 </div>
 <ng-template #noOptions>

@@ -19,7 +19,7 @@ export class RecipeTagPkComponent implements OnInit {
   reloadTagList$ = new BehaviorSubject<boolean>(true);
   tagList$: IRecipeTag[];
   optionList: IRecipeTag[];
-  selectionList: IRecipeTag[];
+  selectionList: IRecipeTag[] = [];
 
   panelOpenState = false;
 
@@ -44,7 +44,13 @@ export class RecipeTagPkComponent implements OnInit {
         selections: this.selectionList,
       },
     });
-    dialogRef.afterClosed().subscribe((res) => console.log(res));
+    dialogRef.afterClosed().subscribe((res: boolean) => {
+      if (res) {
+        console.warn(this.selectionList);
+      } else {
+        console.warn('there are no selections');
+      }
+    });
   }
 
   reload(): void {
