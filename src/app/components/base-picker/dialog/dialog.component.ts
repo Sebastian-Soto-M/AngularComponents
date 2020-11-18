@@ -1,18 +1,17 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IRecipeTag } from 'src/app/entities/recipe-tag.model';
-import { DialogData } from '../recipe-tag-pk.component';
+import { DialogData } from '../panel/panel.component';
 
 @Component({
-  selector: 'app-dialog',
+  selector: 'app-base-picker-dialog',
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.scss'],
 })
 export class DialogComponent implements OnInit {
   searchText = '';
-  options: IRecipeTag[];
-  initialSelections: IRecipeTag[];
-  newSelections: IRecipeTag[];
+  options: any[] = [];
+  initialSelections: any[] = [];
+  newSelections: any[] = [];
 
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
@@ -28,12 +27,12 @@ export class DialogComponent implements OnInit {
     );
   }
 
-  addTag(rt: IRecipeTag): void {
+  addTag(rt: any): void {
     this.newSelections.push(rt);
     this.options = this._filterSelections(this.options, this.newSelections);
   }
 
-  private _filterSelections(a: IRecipeTag[], b: IRecipeTag[]): IRecipeTag[] {
+  private _filterSelections(a: any[], b: any[]): any[] {
     const duplicates = this._getDuplicates(a, b);
     return a.filter((x) => {
       for (const dup of duplicates) {
@@ -45,7 +44,7 @@ export class DialogComponent implements OnInit {
     });
   }
 
-  private _getDuplicates(a: IRecipeTag[], b: IRecipeTag[]): IRecipeTag[] {
+  private _getDuplicates(a: any[], b: any[]): any[] {
     const lookup = a.concat(b).reduce((c, d) => {
       if (d.id !== undefined) {
         c[d.id] = ++c[d.id] || 0;

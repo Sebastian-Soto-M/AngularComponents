@@ -1,0 +1,32 @@
+<div fxLayout="row">
+  <mat-expansion-panel
+    fxFlex="100%"
+    #panel
+    (opened)="checkSelections()"
+    (closed)="panelStatus = false"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title *ngIf="!panelStatus">{{
+        title | titlecase
+      }}</mat-panel-title>
+      <mat-panel-title *ngIf="panelStatus">
+        <button
+          mat-mini-fab
+          color="accent"
+          class="corner-add"
+          (click)="launchDialog()"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-panel-title>
+      <mat-panel-description style="justify-content: end">
+        {{ this.selections.length }}
+        <mat-icon>local_offer</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <app-base-picker-chips
+      [list]="this.selections"
+      (isEmpty)="togglePanel($event)"
+    ></app-base-picker-chips>
+  </mat-expansion-panel>
+</div>
