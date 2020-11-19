@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AddressComponent } from './layout/form/address/address.component';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { BasePickerComponent } from './components/base-picker/base-picker.component';
@@ -36,7 +35,6 @@ import { TagFilterPipe } from './util/tag-filter.pipe';
 
 @NgModule({
   declarations: [
-    AddressComponent,
     AppComponent,
     BasePickerChipsComponent,
     BasePickerComponent,
