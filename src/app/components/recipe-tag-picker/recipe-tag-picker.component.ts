@@ -19,11 +19,17 @@ export class RecipeTagPickerComponent implements OnInit {
 
   ngOnInit() {
     this.reloadTagList$.subscribe((_) => {
-      this.service.queryAll().subscribe((response: any) => {
-        this.tags = response.body.sort((a: IRecipeTag, b: IRecipeTag) =>
-          a.typeId > b.typeId ? 1 : -1
-        );
-      });
+      this.service
+        .query({
+          ...{ 'status.equals': 'ACTIVE' },
+        })
+        .subscribe((response: any) => {
+          this.tags = response.body.sort((a: IRecipeTag, b: IRecipeTag) => {
+            if (a.typeId !== undefined && b.typeId !== undefined)
+              return a.typeId > b.typeId ? 1 : -1;
+            return -1;
+          });
+        });
     });
   }
 
