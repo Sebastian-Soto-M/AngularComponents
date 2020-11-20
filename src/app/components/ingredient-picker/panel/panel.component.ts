@@ -17,13 +17,12 @@ export interface DialogData {
 }
 
 @Component({
-  selector: 'app-base-picker-panel',
+  selector: 'app-ingredient-panel',
   templateUrl: './panel.component.html',
   styleUrls: ['./panel.component.scss'],
 })
 export class PanelComponent implements OnInit {
   @Input('options') options!: any[];
-  @Input('title') title!: string;
   @Output('selectionOutput') selectionOutput = new EventEmitter<any[]>();
   selections: any[] = [];
 

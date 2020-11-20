@@ -7,13 +7,16 @@ import { BasePickerComponent } from './components/base-picker/base-picker.compon
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ChipsComponent as BasePickerChipsComponent } from './components/base-picker/chips/chips.component';
 import { DialogComponent as BasePickerDialogComponent } from './components/base-picker/dialog/dialog.component';
+import { DialogComponent as IngredientPickerDialogComponent } from './components/ingredient-picker/dialog/dialog.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HomeComponent } from './layout/views/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
+import { IngredientPickerComponent } from './components/ingredient-picker/ingredient-picker.component';
 import { IngredientTagPickerComponent } from './components/ingredient-tag-picker/ingredient-tag-picker.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { ListComponent as BasePickerListComponent } from './components/base-picker/list/list.component';
+import { ListComponent as IngredientPickerListComponent } from './components/ingredient-picker/list/list.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatChipsModule } from '@angular/material/chips';
@@ -27,12 +30,14 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { NavigationComponent } from './layout/navigation/navigation.component';
 import { PanelComponent as BasePickerPanelComponent } from './components/base-picker/panel/panel.component';
+import { PanelComponent as IngredientPickerPanelComponent } from './components/ingredient-picker/panel/panel.component';
 import { RecipeTagPickerComponent } from './components/recipe-tag-picker/recipe-tag-picker.component';
 import { RecipeTagService } from './service/recipe-tag.service';
+import { SelectionComponent as IngredientPickerSelectionComponent } from './components/ingredient-picker/selection/selection.component';
 import { TagFilterPipe } from './util/tag-filter.pipe';
-import { IngredientPickerComponent } from './components/ingredient-picker/ingredient-picker.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +53,10 @@ import { IngredientPickerComponent } from './components/ingredient-picker/ingred
     RecipeTagPickerComponent,
     TagFilterPipe,
     IngredientPickerComponent,
+    IngredientPickerDialogComponent,
+    IngredientPickerPanelComponent,
+    IngredientPickerListComponent,
+    IngredientPickerSelectionComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -71,6 +80,7 @@ import { IngredientPickerComponent } from './components/ingredient-picker/ingred
     MatSelectModule,
     MatSidenavModule,
     MatToolbarModule,
+    MatTooltipModule,
     ReactiveFormsModule,
   ],
   providers: [RecipeTagService],
