@@ -1,1 +1,5 @@
-<p>ingredient-picker works!</p>
+<app-ingredient-panel
+  [options]="ingredients"
+  (selectionOutput)="selections = $event"
+>
+</app-ingredient-panel>

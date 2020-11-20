@@ -1,1 +1,37 @@
-<p>list works!</p>
+<mat-list>
+  <div
+    *ngFor="
+      let rt of options | ingredientFilter: searchText;
+      let i = index;
+      first as first
+    "
+  >
+    <mat-list-item>
+      <!-- This is for the database images -->
+      <!-- <img -->
+      <!-- *ngIf="rt.image" -->
+      <!-- [src]="'data:' + rt.imageContentType + ';base64,' + rt.image" -->
+      <!-- alt="ingredient image" -->
+      <!-- matListAvatar -->
+      <!-- /> -->
+      <img
+        *ngIf="rt.image"
+        [src]="rt.image"
+        alt="ingredient image"
+        matListAvatar
+      />
+      <mat-icon *ngIf="!rt.image" matListIcon color="primary"
+        >shopping_cart</mat-icon
+      >
+      <button mat-icon-button (click)="add(rt)">
+        <mat-icon color="accent">add</mat-icon>
+      </button>
+      <div matLine>
+        {{ rt.name }}
+      </div>
+      <div matLine>
+        {{ rt.description }}
+      </div>
+    </mat-list-item>
+  </div>
+</mat-list>

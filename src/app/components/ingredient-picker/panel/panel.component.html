@@ -1,1 +1,27 @@
-<p>panel works!</p>
+<div fxLayout="row">
+  <mat-expansion-panel
+    fxFlex="100%"
+    #panel
+    (opened)="checkSelections()"
+    (closed)="panelStatus = false"
+  >
+    <mat-expansion-panel-header>
+      <mat-panel-title *ngIf="!panelStatus">Ingredients</mat-panel-title>
+      <mat-panel-title *ngIf="panelStatus">
+        <button
+          mat-mini-fab
+          color="accent"
+          class="corner-add"
+          (click)="launchDialog()"
+        >
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-panel-title>
+      <mat-panel-description style="justify-content: end">
+        {{ this.selections.length }}
+        <mat-icon>shopping_cart</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    here go the forms
+  </mat-expansion-panel>
+</div>

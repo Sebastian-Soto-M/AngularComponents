@@ -38,6 +38,7 @@ import { RecipeTagPickerComponent } from './components/recipe-tag-picker/recipe-
 import { RecipeTagService } from './service/recipe-tag.service';
 import { SelectionComponent as IngredientPickerSelectionComponent } from './components/ingredient-picker/selection/selection.component';
 import { TagFilterPipe } from './util/tag-filter.pipe';
+import { IngredientFilterPipe } from './util/ingredient-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -48,15 +49,16 @@ import { TagFilterPipe } from './util/tag-filter.pipe';
     BasePickerListComponent,
     BasePickerPanelComponent,
     HomeComponent,
+    IngredientFilterPipe,
+    IngredientPickerComponent,
+    IngredientPickerDialogComponent,
+    IngredientPickerListComponent,
+    IngredientPickerPanelComponent,
+    IngredientPickerSelectionComponent,
     IngredientTagPickerComponent,
     NavigationComponent,
     RecipeTagPickerComponent,
     TagFilterPipe,
-    IngredientPickerComponent,
-    IngredientPickerDialogComponent,
-    IngredientPickerPanelComponent,
-    IngredientPickerListComponent,
-    IngredientPickerSelectionComponent,
   ],
   imports: [
     AppRoutingModule,
