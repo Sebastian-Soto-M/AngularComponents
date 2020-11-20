@@ -22,8 +22,8 @@ export interface DialogData {
   styleUrls: ['./panel.component.scss'],
 })
 export class PanelComponent implements OnInit {
-  @Input('options') options!: any[];
-  @Input('title') title!: string;
+  @Input() options!: any[];
+  @Input() title!: string;
   @Output('selectionOutput') selectionOutput = new EventEmitter<any[]>();
   selections: any[] = [];
 
@@ -37,7 +37,7 @@ export class PanelComponent implements OnInit {
   launchDialog(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
       maxWidth: '1000px',
-      maxHeight: '90%',
+      maxHeight: '95%',
       width: '90%',
       data: {
         title: this.title,

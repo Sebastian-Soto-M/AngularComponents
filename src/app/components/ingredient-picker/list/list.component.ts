@@ -6,9 +6,9 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./list.component.scss'],
 })
 export class ListComponent implements OnInit {
-  @Input('searchText') searchText: string;
-  @Input('options') options!: any[];
-  @Output('selectionsOutput') selectionOutput = new EventEmitter<any>();
+  @Input() searchText: string;
+  @Input() options!: any[];
+  @Output('selectionOutput') selectionOutput = new EventEmitter<any>();
 
   constructor() {}
 

@@ -22,7 +22,7 @@ export interface DialogData {
   styleUrls: ['./panel.component.scss'],
 })
 export class PanelComponent implements OnInit {
-  @Input('options') options!: any[];
+  @Input() options!: any[];
   @Output('selectionOutput') selectionOutput = new EventEmitter<any[]>();
   selections: any[] = [];
 

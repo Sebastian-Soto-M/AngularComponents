@@ -27,7 +27,7 @@ export class DialogComponent implements OnInit {
     );
   }
 
-  addTag(rt: any): void {
+  addIngredient(rt: any): void {
     this.newSelections.push(rt);
     this.options = this._filterSelections(this.options, this.newSelections);
   }

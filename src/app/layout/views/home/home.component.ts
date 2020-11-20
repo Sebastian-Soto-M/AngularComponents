@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { IngredientPickerComponent } from 'src/app/components/ingredient-picker/ingredient-picker.component';
 import { RecipeTagPickerComponent } from 'src/app/components/recipe-tag-picker/recipe-tag-picker.component';
 
 @Component({
@@ -8,6 +9,7 @@ import { RecipeTagPickerComponent } from 'src/app/components/recipe-tag-picker/r
 })
 export class HomeComponent implements OnInit {
   @ViewChild('recipePk') recipePicker!: RecipeTagPickerComponent;
+  @ViewChild('ingredientPk') ingredientPicker!: IngredientPickerComponent;
 
   constructor() {}
 

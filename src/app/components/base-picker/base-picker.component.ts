@@ -6,8 +6,8 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./base-picker.component.scss'],
 })
 export class BasePickerComponent implements OnInit {
-  @Input('options') options!: any;
-  @Input('title') title!: string;
+  @Input() options!: any;
+  @Input() title!: string;
   selections: any[] = [];
 
   constructor() {}

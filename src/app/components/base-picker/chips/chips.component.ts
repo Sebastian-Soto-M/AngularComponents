@@ -7,7 +7,7 @@ import { Component, Input, OnInit, Output } from '@angular/core';
   styleUrls: ['./chips.component.scss'],
 })
 export class ChipsComponent implements OnInit {
-  @Input('list') list!: any[];
+  @Input() list!: any[];
   @Output('isEmpty') isEmpty = new EventEmitter<boolean>();
 
   constructor() {}

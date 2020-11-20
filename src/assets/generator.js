@@ -3,45 +3,17 @@ const faker = require("faker");
 
 const dbSize = 30;
 
-const ingredientNames = [
-  "baking powder",
-  "eggs",
-  "all-purpose flour",
-  "raisins",
-  "milk",
-  "white sugar",
-  "sugar",
-  "egg yolks",
-  "corn starch",
-  "cream of tartar",
-  "bananas",
-  "vanilla wafers",
-  "milk",
-  "vanilla extract",
-  "toasted pecans",
-  "egg whites",
-  "light rum",
-  "sausage links",
-  "fennel bulb",
-  "fronds",
-  "olive oil",
-  "cuban peppers",
-  "onions",
-  "meat cuts",
-  "file powder",
-  "smoked sausage",
-  "okra",
-  "shrimp",
-  "andouille sausage",
-  "water",
-  "paprika",
-  "hot sauce",
-  "garlic cloves",
-  "browning",
-  "lump crab meat",
-  "vegetable oil",
-  "all-purpose flour",
-];
+const estatus = {
+  ACTIVE: "Active",
+  INACTIVE: "Inactive",
+  BLOCKED: "Blocked",
+  PENDING: "Pending",
+};
+
+function randStatus() {
+  let rand = Math.floor(Math.random() * Object.keys(estatus).length);
+  return estatus[Object.keys(estatus)[rand]];
+}
 
 const tagTypes = [
   {
@@ -70,18 +42,6 @@ const tagTypes = [
   },
 ];
 
-const estatus = {
-  ACTIVE: "Active",
-  INACTIVE: "Inactive",
-  BLOCKED: "Blocked",
-  PENDING: "Pending",
-};
-
-function randStatus() {
-  let rand = Math.floor(Math.random() * Object.keys(estatus).length);
-  return estatus[Object.keys(estatus)[rand]];
-}
-
 function randListItem(list) {
   let rand = Math.floor(Math.random() * list.length);
   return list[rand];
@@ -107,7 +67,7 @@ for (let i = 0; i < dbSize; i++) {
 for (var i = 0; i < 40; i++) {
   db["ingredients"].push({
     id: i + 1,
-    name: randListItem(ingredientNames),
+    name: faker.lorem.word(),
     description: faker.lorem.sentence(),
     units: randListItem(["cm", "ml", "l", "in", "dr"]),
     image: faker.image.food(),
