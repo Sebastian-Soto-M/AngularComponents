@@ -32,6 +32,7 @@ import { PanelComponent as BasePickerPanelComponent } from './components/base-pi
 import { RecipeTagPickerComponent } from './components/recipe-tag-picker/recipe-tag-picker.component';
 import { RecipeTagService } from './service/recipe-tag.service';
 import { TagFilterPipe } from './util/tag-filter.pipe';
+import { IngredientPickerComponent } from './components/ingredient-picker/ingredient-picker.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { TagFilterPipe } from './util/tag-filter.pipe';
     NavigationComponent,
     RecipeTagPickerComponent,
     TagFilterPipe,
+    IngredientPickerComponent,
   ],
   imports: [
     AppRoutingModule,

@@ -42,17 +42,18 @@ const tagTypes = [
   },
 ];
 
-function randTagType() {
-  let rand = Math.floor(Math.random() * tagTypes.length);
-  return tagTypes[rand];
+function randListItem(list) {
+  let rand = Math.floor(Math.random() * list.length);
+  return list[rand];
 }
 
 let db = {
+  ingredients: [],
   "recipe-tag": [],
 };
 
 for (let i = 0; i < dbSize; i++) {
-  const type = randTagType();
+  const type = randListItem(tagTypes);
   db["recipe-tag"].push({
     id: i + 1,
     name: faker.lorem.words(2),
@@ -60,6 +61,16 @@ for (let i = 0; i < dbSize; i++) {
     status: randStatus(),
     typeId: type["id"],
     typeName: type["name"],
+  });
+}
+
+for (var i = 0; i < 40; i++) {
+  db["ingredients"].push({
+    id: i + 1,
+    name: faker.lorem.word(),
+    description: faker.lorem.sentence(),
+    units: randListItem(["cm", "ml", "l", "in", "dr"]),
+    status: randStatus(),
   });
 }
 
