@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  submit() {
+  submit(): void {
     this.ingredients = this.ingredientPicker.getIngredients();
     this.recipeTags = this.recipePicker.getRecipeTags();
     console.warn(this.ingredients);
