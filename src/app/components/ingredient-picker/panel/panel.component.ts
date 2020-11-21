@@ -2,13 +2,17 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnDestroy,
   OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
+import { FormArray, FormGroup } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatExpansionPanel } from '@angular/material/expansion';
+import { Subscription } from 'rxjs';
 import { DialogComponent } from '../dialog/dialog.component';
+import { IngredientPickerFormService } from '../ingredient-picker-form.service';
 
 export interface DialogData {
   title: string;
@@ -21,7 +25,7 @@ export interface DialogData {
   templateUrl: './panel.component.html',
   styleUrls: ['./panel.component.scss'],
 })
-export class PanelComponent implements OnInit {
+export class PanelComponent implements OnInit, OnDestroy {
   @Input() options!: any[];
   @Output('selectionOutput') selectionOutput = new EventEmitter<any[]>();
   selections: any[] = [];
@@ -29,9 +33,31 @@ export class PanelComponent implements OnInit {
   @ViewChild('panel') panel!: MatExpansionPanel;
   panelStatus = false;
 
-  constructor(public dialog: MatDialog) {}
+  // Form Attributes
+  ingredientForm!: FormGroup;
+  ingredientFormSub!: Subscription;
+  ingredientsSelected!: FormArray;
+  formInvalid = false;
 
-  ngOnInit(): void {}
+  constructor(
+    public ingredientPFService: IngredientPickerFormService,
+    public dialog: MatDialog
+  ) {}
+
+  ngOnInit(): void {
+    this.ingredientFormSub = this.ingredientPFService.form$.subscribe(
+      (ingredientsPicker) => {
+        this.ingredientForm = ingredientsPicker;
+        this.ingredientsSelected = this.ingredientForm.get(
+          'selections'
+        ) as FormArray;
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.ingredientFormSub.unsubscribe();
+  }
 
   launchDialog(): void {
     const dialogRef = this.dialog.open(DialogComponent, {
@@ -49,9 +75,10 @@ export class PanelComponent implements OnInit {
       },
     });
     dialogRef.afterClosed().subscribe((selections: any[]) => {
-      selections !== undefined && selections.length !== 0
-        ? (this.selections = selections)
-        : this.close();
+      if (selections !== undefined && selections.length !== 0) {
+        this.selections = selections;
+        this.ingredientPFService.setIngredients(this.selections);
+      } else this.close();
       this.selectionOutput.emit(this.selections);
     });
   }
@@ -67,6 +94,10 @@ export class PanelComponent implements OnInit {
     } else {
       this.panelStatus = true;
     }
+  }
+
+  getSelectedControls(): FormGroup[] {
+    return this.ingredientsSelected.controls as FormGroup[];
   }
 
   private close(): void {

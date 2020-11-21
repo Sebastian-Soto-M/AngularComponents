@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { IIngredient } from 'src/app/entities/ingredient.model';
+import { FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-ingredient-selection-list',
@@ -7,7 +7,7 @@ import { IIngredient } from 'src/app/entities/ingredient.model';
   styleUrls: ['./selection-list.component.scss'],
 })
 export class SelectionListComponent implements OnInit {
-  @Input() list!: IIngredient[];
+  @Input() list!: FormGroup[];
   @Output() isEmpty = new EventEmitter<boolean>();
 
   constructor() {}

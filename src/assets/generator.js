@@ -69,7 +69,7 @@ for (var i = 0; i < 40; i++) {
     id: i + 1,
     name: faker.lorem.word(),
     description: faker.lorem.sentence(),
-    units: randListItem(["cm", "ml", "l", "in", "dr"]),
+    unitAbbrev: randListItem(["cm", "ml", "l", "in", "dr"]),
     image: faker.image.food(),
     status: randStatus(),
   });

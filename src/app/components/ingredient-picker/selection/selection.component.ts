@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormGroup } from '@angular/forms';
+import { IIngredient } from 'src/app/entities/ingredient.model';
 
 @Component({
   selector: 'app-ingredient-selection',
@@ -6,7 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./selection.component.scss'],
 })
 export class SelectionComponent implements OnInit {
+  @Input() form!: FormGroup;
+  @Input() index!: number;
+  @Output() deselect: EventEmitter<number> = new EventEmitter();
+  ingredient!: IIngredient;
+
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const ing = this.form.get('ingredient');
+    this.ingredient =
+      ing !== null ? ing.value : { name: 'null', unitAbbrev: 'null' };
+  }
+
+  deselectItem(): void {
+    this.deselect.emit(this.index);
+  }
 }

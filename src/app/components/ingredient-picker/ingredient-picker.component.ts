@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { IIngredient } from 'src/app/entities/ingredient.model';
 import { IngredientService } from 'src/app/service/ingredient.service';

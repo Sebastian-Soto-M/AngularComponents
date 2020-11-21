@@ -1,1 +1,6 @@
-<p>selection-list works!</p>
+<app-ingredient-selection
+  *ngFor="let item of list; let i = index"
+  [index]="i"
+  [form]="item"
+></app-ingredient-selection>
+
