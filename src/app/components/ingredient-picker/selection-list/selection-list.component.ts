@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormArray, FormGroup } from '@angular/forms';
+import { IIngredient } from 'src/app/entities/ingredient.model';
 
 @Component({
   selector: 'app-ingredient-selection-list',
@@ -7,15 +8,20 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./selection-list.component.scss'],
 })
 export class SelectionListComponent implements OnInit {
-  @Input() list!: FormGroup[];
+  @Input() list!: FormArray;
+  @Input() ingredientList!: IIngredient[];
   @Output() isEmpty = new EventEmitter<boolean>();
+  controls!: FormGroup[];
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.list !== null) this.controls = this.list.controls as FormGroup[];
+  }
 
   remove(index: number): void {
-    this.list.splice(index, 1);
+    this.list.removeAt(index);
+    this.ingredientList.splice(index, 1);
     if (this.list.length === 0) {
       this.isEmpty.emit(true);
     }

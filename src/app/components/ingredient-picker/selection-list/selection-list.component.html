@@ -1,6 +1,8 @@
-<app-ingredient-selection
-  *ngFor="let item of list; let i = index"
-  [index]="i"
-  [form]="item"
-></app-ingredient-selection>
-
+<mat-list>
+  <app-ingredient-selection
+    *ngFor="let item of controls; let i = index"
+    [index]="i"
+    [form]="item"
+    (deselect)="remove($event)"
+  ></app-ingredient-selection>
+</mat-list>

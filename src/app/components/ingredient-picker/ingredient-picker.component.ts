@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { IIngredient } from 'src/app/entities/ingredient.model';
 import { IngredientService } from 'src/app/service/ingredient.service';
@@ -11,7 +12,7 @@ import { IngredientService } from 'src/app/service/ingredient.service';
 export class IngredientPickerComponent implements OnInit {
   reloadTagList$ = new BehaviorSubject<boolean>(true);
   ingredients: IIngredient[];
-  selections: any[];
+  form: FormGroup;
 
   constructor(public service: IngredientService) {}
 
@@ -31,7 +32,7 @@ export class IngredientPickerComponent implements OnInit {
     });
   }
 
-  getIngredients(): IIngredient[] {
-    return this.selections;
+  getIngredients(): any[] {
+    return this.form !== undefined ? this.form.value.selections : [];
   }
 }

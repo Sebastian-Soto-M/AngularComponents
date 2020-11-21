@@ -2,3 +2,8 @@
   <app-ingredient-picker #ingredientPk></app-ingredient-picker>
   <app-recipe-tag-picker #recipePk></app-recipe-tag-picker>
 </mat-accordion>
+<button mat-raised-button color="accent" (click)="submit()">Get Data</button>
+<mat-divider></mat-divider>
+<h1>There are {{ ingredients.length }} ingredients selected</h1>
+<mat-divider></mat-divider>
+<h1>There are {{ recipeTags.length }} recipe tags selected</h1>

@@ -21,7 +21,7 @@ export class SelectionComponent implements OnInit {
       ing !== null ? ing.value : { name: 'null', unitAbbrev: 'null' };
   }
 
-  deselectItem(): void {
+  remove(): void {
     this.deselect.emit(this.index);
   }
 }

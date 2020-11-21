@@ -27,7 +27,7 @@ export interface DialogData {
 })
 export class PanelComponent implements OnInit, OnDestroy {
   @Input() options!: any[];
-  @Output('selectionOutput') selectionOutput = new EventEmitter<any[]>();
+  @Output('selectionOutput') selectionOutput = new EventEmitter<FormGroup>();
   selections: any[] = [];
 
   @ViewChild('panel') panel!: MatExpansionPanel;
@@ -79,7 +79,7 @@ export class PanelComponent implements OnInit, OnDestroy {
         this.selections = selections;
         this.ingredientPFService.setIngredients(this.selections);
       } else this.close();
-      this.selectionOutput.emit(this.selections);
+      this.selectionOutput.emit(this.ingredientForm);
     });
   }
 
@@ -96,8 +96,8 @@ export class PanelComponent implements OnInit, OnDestroy {
     }
   }
 
-  getSelectedControls(): FormGroup[] {
-    return this.ingredientsSelected.controls as FormGroup[];
+  getSelectedForms(): FormArray {
+    return this.ingredientsSelected;
   }
 
   private close(): void {

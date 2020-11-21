@@ -24,7 +24,8 @@
     </mat-expansion-panel-header>
     <app-ingredient-selection-list
       (remove)="ingredientPFService.deleteIngredient($event)"
-      [list]="getSelectedControls()"
+      [list]="getSelectedForms()"
+      [ingredientList]="selections"
       (isEmpty)="togglePanel($event)"
     >
     </app-ingredient-selection-list>
