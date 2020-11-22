@@ -1,5 +1,7 @@
 {
   "/api/*": "/$1",
   "/recipe-tags": "/recipe-tag",
-  "/recipe-tags/all": "/recipe-tag"
+  "/recipe-tags/all": "/recipe-tag",
+  "/ingredient-tags": "/ingredient-tag",
+  "/ingredient-tags/all": "/ingredient-tag"
 }

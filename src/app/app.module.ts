@@ -1,3 +1,6 @@
+// Material
+import { AppMaterialModule } from './app-material.module';
+
 // Basic imports
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -34,23 +37,6 @@ import { TagFilterPipe } from './util/tag-filter.pipe';
 import { RecipeTagService } from './service/recipe-tag.service';
 import { IngredientPickerFormService } from './components/ingredient-picker/ingredient-picker-form.service';
 import { IngredientService } from './service/ingredient.service';
-
-// Angular material
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatChipsModule } from '@angular/material/chips';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatListModule } from '@angular/material/list';
-import { MatRadioModule } from '@angular/material/radio';
-import { MatSelectModule } from '@angular/material/select';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatTooltipModule } from '@angular/material/tooltip';
-
 // Navigation
 import { HomeComponent } from './layout/views/home/home.component';
 import { NavigationComponent } from './layout/navigation/navigation.component';
@@ -78,27 +64,13 @@ import { NavigationComponent } from './layout/navigation/navigation.component';
   ],
   imports: [
     AppRoutingModule,
+    AppMaterialModule,
     BrowserAnimationsModule,
     BrowserModule,
     FlexLayoutModule,
     FormsModule,
     HttpClientModule,
     LayoutModule,
-    MatButtonModule,
-    MatCardModule,
-    MatChipsModule,
-    MatDialogModule,
-    MatExpansionModule,
-    MatFormFieldModule,
-    MatIconModule,
-    MatInputModule,
-    MatInputModule,
-    MatListModule,
-    MatRadioModule,
-    MatSelectModule,
-    MatSidenavModule,
-    MatToolbarModule,
-    MatTooltipModule,
     ReactiveFormsModule,
   ],
   providers: [RecipeTagService, IngredientService, IngredientPickerFormService],

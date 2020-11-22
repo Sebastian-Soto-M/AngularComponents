@@ -1,9 +1,33 @@
-<mat-accordion multi style="margin: 16px; display: block">
-  <app-ingredient-picker #ingredientPk></app-ingredient-picker>
-  <app-recipe-tag-picker #recipePk></app-recipe-tag-picker>
-</mat-accordion>
-<button mat-raised-button color="accent" (click)="submit()">Get Data</button>
-<mat-divider></mat-divider>
-<h1>There are {{ ingredients.length }} ingredients selected</h1>
-<mat-divider></mat-divider>
-<h1>There are {{ recipeTags.length }} recipe tags selected</h1>
+<mat-card>
+  <mat-card-header>
+    <h1>Picker examples</h1>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-accordion>
+      <app-ingredient-picker #ingredientPk></app-ingredient-picker>
+      <app-recipe-tag-picker #recipeTagPk></app-recipe-tag-picker>
+      <app-ingredient-tag-picker #ingredientTagPk></app-ingredient-tag-picker>
+    </mat-accordion>
+  </mat-card-content>
+  <mat-card-footer>
+    <mat-list>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        Ingredients selected: {{ ingredients.length }}
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        Recipe Tags selected: {{ recipeTags.length }} 
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        Ingredient Tags selected: {{ ingredientTags.length }}
+      </mat-list-item>
+    </mat-list>
+  </mat-card-footer>
+  <mat-card-actions align="end">
+    <button mat-raised-button color="accent" (click)="submit()">
+      Get Data
+    </button>
+  </mat-card-actions>
+</mat-card>
