@@ -1,11 +1,4 @@
 <mat-list-item>
-  <!-- This is for the database images -->
-  <!-- <img -->
-  <!-- *ngIf="rt.image" -->
-  <!-- [src]="'data:' + rt.imageContentType + ';base64,' + rt.image" -->
-  <!-- alt="ingredient image" -->
-  <!-- matListAvatar -->
-  <!-- /> -->
   <img
     *ngIf="ingredient.image"
     [src]="ingredient.image"
@@ -21,7 +14,6 @@
   <div matLine>
     <form [formGroup]="form">
       <mat-form-field>
-        <!-- <mat-label>Amount</mat-label> -->
         <input
           autocomplete="off"
           formControlName="amount"
