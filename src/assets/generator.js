@@ -49,13 +49,13 @@ function randListItem(list) {
 
 let db = {
   ingredients: [],
-  "recipe-tag": [],
-  "ingredient-tag": [],
+  "recipe-tags": [],
+  "ingredient-tags": [],
 };
 
 for (let i = 0; i < dbSize; i++) {
   const type = randListItem(tagTypes);
-  db["recipe-tag"].push({
+  db["recipe-tags"].push({
     id: i + 1,
     name: faker.lorem.words(2),
     description: faker.lorem.sentence(3, 5),
@@ -63,7 +63,7 @@ for (let i = 0; i < dbSize; i++) {
     typeId: type["id"],
     typeName: type["name"],
   });
-  db["ingredient-tag"].push({
+  db["ingredient-tags"].push({
     id: i + 1,
     name: faker.lorem.words(2),
     description: faker.lorem.sentence(3, 5),

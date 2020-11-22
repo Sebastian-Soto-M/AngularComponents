@@ -40,6 +40,7 @@ import { IngredientService } from './service/ingredient.service';
 // Navigation
 import { HomeComponent } from './layout/views/home/home.component';
 import { NavigationComponent } from './layout/navigation/navigation.component';
+import { PickersComponent } from './layout/views/pickers/pickers.component';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { NavigationComponent } from './layout/navigation/navigation.component';
     NavigationComponent,
     RecipeTagPickerComponent,
     TagFilterPipe,
+    PickersComponent,
   ],
   imports: [
     AppRoutingModule,
