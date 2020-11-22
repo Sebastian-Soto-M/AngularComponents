@@ -14,15 +14,19 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { NgModule } from '@angular/core';
 
 // UI Base Components
+
+// Base Picker
 import { ChipsComponent as BasePickerChipsComponent } from './components/base-picker/chips/chips.component';
 import { DialogComponent as BasePickerDialogComponent } from './components/base-picker/dialog/dialog.component';
-import { DialogComponent as IngredientPickerDialogComponent } from './components/ingredient-picker/dialog/dialog.component';
 import { ListComponent as BasePickerListComponent } from './components/base-picker/list/list.component';
-import { ListComponent as IngredientPickerListComponent } from './components/ingredient-picker/list/list.component';
 import { PanelComponent as BasePickerPanelComponent } from './components/base-picker/panel/panel.component';
+
+// Ingredient Picker
+import { DialogComponent as IngredientPickerDialogComponent } from './components/ingredient-picker/dialog/dialog.component';
+import { ListComponent as IngredientPickerListComponent } from './components/ingredient-picker/list/list.component';
 import { PanelComponent as IngredientPickerPanelComponent } from './components/ingredient-picker/panel/panel.component';
 import { SelectionComponent as IngredientPickerSelectionComponent } from './components/ingredient-picker/selection/selection.component';
-import { SelectionListComponent as IngredientSelectionListComponent } from './components/ingredient-picker/selection-list/selection-list.component';
+import { SelectionListComponent as IngredientPickerSelectionListComponent } from './components/ingredient-picker/selection-list/selection-list.component';
 
 // UI Components
 import { IngredientPickerComponent } from './components/ingredient-picker/ingredient-picker.component';
@@ -57,7 +61,7 @@ import { PickersComponent } from './layout/views/pickers/pickers.component';
     IngredientPickerListComponent,
     IngredientPickerPanelComponent,
     IngredientPickerSelectionComponent,
-    IngredientSelectionListComponent,
+    IngredientPickerSelectionListComponent,
     IngredientTagPickerComponent,
     NavigationComponent,
     RecipeTagPickerComponent,
