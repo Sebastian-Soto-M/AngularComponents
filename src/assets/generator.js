@@ -51,6 +51,22 @@ let db = {
   ingredients: [],
   "recipe-tags": [],
   "ingredient-tags": [],
+  "user-profiles": [
+    {
+      id: 1,
+      userId: 1,
+      userLogin: "abc123doremi",
+    },
+  ],
+  users: [
+    {
+      id: 1,
+      login: "abc123doremi",
+      firstName: "Sebastian",
+      lastName: "Soto",
+      email: "ssotom@ucenfotec.ac.cr",
+    },
+  ],
 };
 
 for (let i = 0; i < dbSize; i++) {
