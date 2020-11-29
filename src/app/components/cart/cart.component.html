@@ -1,1 +1,32 @@
-<p>cart works!</p>
+<mat-card class="mat-elevation-z2" tabindex="-1">
+  <mat-card-title-group>
+    <mat-card-title>Cart</mat-card-title>
+    <mat-card-subtitle>{{ this.cartInfo() }}</mat-card-subtitle>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Cart menu">
+      <mat-icon>more_vert</mat-icon>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>visibility</mat-icon>
+          <span>Toggle visible selections</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>check_box</mat-icon>
+          <span>Select all items</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>check_box_outline_blank</mat-icon>
+          <span>Select all items</span>
+        </button>
+        <button mat-menu-item disabled>
+          <mat-icon>history</mat-icon>
+          <span>History (Coming soon)</span>
+        </button>
+      </mat-menu>
+    </button>
+  </mat-card-title-group>
+  <mat-card-content> </mat-card-content>
+  <mat-card-actions align="end">
+    <button mat-button (click)="this.closeCart()">Close</button>
+    <button mat-raised-button color="primary">Add Ingredients</button>
+  </mat-card-actions>
+</mat-card>

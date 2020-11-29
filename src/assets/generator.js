@@ -51,22 +51,17 @@ let db = {
   ingredients: [],
   "recipe-tags": [],
   "ingredient-tags": [],
-  "user-profiles": [
+  carts: [
     {
       id: 1,
+      created: new Date(),
+      status: estatus.ACTIVE,
       userId: 1,
-      userLogin: "abc123doremi",
+      userLogin: "snsm",
     },
   ],
-  users: [
-    {
-      id: 1,
-      login: "abc123doremi",
-      firstName: "Sebastian",
-      lastName: "Soto",
-      email: "ssotom@ucenfotec.ac.cr",
-    },
-  ],
+  "cart-has-ingredients": [],
+  "cart-has-recipes": [],
 };
 
 for (let i = 0; i < dbSize; i++) {

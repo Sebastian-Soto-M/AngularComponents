@@ -12,3 +12,8 @@ input[type="number"] {
 mat-list-item.mat-list-item {
   margin: 16px 0px;
 }
+
+mat-form-field {
+  width: 150px;
+  min-width: 100px;
+}

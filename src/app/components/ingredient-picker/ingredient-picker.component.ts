@@ -18,17 +18,13 @@ export class IngredientPickerComponent implements OnInit {
 
   ngOnInit(): void {
     this.reloadTagList$.subscribe((_) => {
-      this.service
-        .query({
-          ...{ 'status.equals': 'ACTIVE' },
-        })
-        .subscribe((response: any) => {
-          this.ingredients = response.body.sort(
-            (a: IIngredient, b: IIngredient) => {
-              return a.id > b.id ? 1 : -1;
-            }
-          );
-        });
+      this.service.query().subscribe((response: any) => {
+        this.ingredients = response.body.sort(
+          (a: IIngredient, b: IIngredient) => {
+            return a.id > b.id ? 1 : -1;
+          }
+        );
+      });
     });
   }
 
