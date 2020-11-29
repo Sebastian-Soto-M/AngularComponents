@@ -1,0 +1,37 @@
+<mat-list [ngSwitch]="list.length > 0">
+  <div *ngSwitchCase="true">
+    <mat-list-item *ngFor="let item of list">
+      <img
+        *ngIf="item.image"
+        [src]="item.image"
+        alt="List item image"
+        matListAvatar
+      />
+      <mat-icon *ngIf="!item.image" color="primary" matListIcon
+        >shopping_cart</mat-icon
+      >
+      <div matLine>{{ item.name }}</div>
+      <div matLine>
+        {{ item.amount }} <strong>{{ item.unitAbbrev }}</strong>
+      </div>
+      <button mat-icon-button>
+        <mat-icon color="warn">delete</mat-icon>
+      </button>
+      <button mat-icon-button>
+        <mat-icon color="primary">info</mat-icon>
+      </button>
+      <button mat-icon-button [ngSwitch]="item.status">
+        <mat-icon *ngSwitchCase="'Pending'" color="accent">check_box</mat-icon>
+        <mat-icon *ngSwitchDefault>check_box_outline_blank</mat-icon>
+      </button>
+    </mat-list-item>
+  </div>
+
+  <div *ngSwitchDefault>
+    <mat-list-item>
+      <mat-icon color="primary" matListIcon>view_list</mat-icon>
+      <div matLine>Ready when you need me.</div>
+      <div matLine>Add some ingredients!</div>
+    </mat-list-item>
+  </div>
+</mat-list>

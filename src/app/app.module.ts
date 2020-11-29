@@ -46,6 +46,8 @@ import { HomeComponent } from './layout/views/home/home.component';
 import { NavigationComponent } from './layout/navigation/navigation.component';
 import { PickersComponent } from './layout/views/pickers/pickers.component';
 import { CartComponent } from './components/cart/cart.component';
+import { ListComponent } from './components/cart/list/list.component';
+import { StatusFilterPipe } from './util/status-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -69,6 +71,8 @@ import { CartComponent } from './components/cart/cart.component';
     TagFilterPipe,
     PickersComponent,
     CartComponent,
+    ListComponent,
+    StatusFilterPipe,
   ],
   imports: [
     AppRoutingModule,
