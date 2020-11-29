@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
@@ -15,6 +16,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
   exports: [
@@ -34,6 +36,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatTabsModule,
     MatToolbarModule,
     MatTooltipModule,
+    MatBadgeModule,
+    MatMenuModule,
   ],
 })
 export class AppMaterialModule {}
