@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { Account } from 'src/app/entities/account.model';
 import { ICartHasIngredient } from 'src/app/entities/cart-has-ingredient.model';
 import { ICartHasRecipe } from 'src/app/entities/cart-has-recipe.model';
@@ -18,12 +18,16 @@ import { Status } from 'src/app/status.enum';
 })
 export class CartComponent implements OnInit {
   @Input() account!: Account;
-  private _cart: ICart | null;
-  public cartIngredients: ICartIngredient[] = [];
-  public cartHasIngredients: ICartHasIngredient[] = [];
-  public cartHasRecipes: ICartHasRecipe[] = [];
+
+  cartHasIngredients: ICartHasIngredient[] = [];
+  cartHasRecipes: ICartHasRecipe[] = [];
   cartInfo: Observable<string>;
+  cartIngredients: ICartIngredient[] = [];
+  visibleCartIngredients: ICartIngredient[] = [];
   requesting = false;
+  private _statusList = [Status.PENDING];
+  private _cart: ICart | null;
+  visibilityAll = false;
 
   constructor(
     public cartHasIngredientService: CartHasIngredientService,
@@ -37,13 +41,6 @@ export class CartComponent implements OnInit {
       setInterval(() => {
         obs.next(`Created ${this._cart.created.fromNow()}`);
       }, 1000);
-    });
-    this.cartIngredients.push({
-      id: 1,
-      name: 'test',
-      amount: 200,
-      unitAbbrev: 'g',
-      status: Status.PENDING,
     });
   }
 
@@ -62,6 +59,37 @@ export class CartComponent implements OnInit {
     this.getCart();
   }
 
+  toggleVisibility(): void {
+    this.visibilityAll = !this.visibilityAll;
+    this.visibilityAll
+      ? this._statusList.push(Status.ACTIVE)
+      : this._statusList.pop();
+    this._filterList();
+    console.warn(this._statusList);
+    console.warn(this.cartIngredients.length);
+  }
+
+  updateCartIngredients(item: ICartIngredient): void {
+    console.warn(this.cartIngredients.indexOf(item));
+    this._filterList();
+  }
+
+  private _filterList(): void {
+    this.visibleCartIngredients = this.cartIngredients
+      .filter((x) => {
+        return this._statusList.includes(x.status);
+      })
+      .sort((a: any, b: any) => {
+        const x = a.status,
+          y = b.status;
+        return a.status === Status.PENDING || x.status < y.status
+          ? 0
+          : x.status === Status.PENDING
+          ? 1
+          : -1;
+      });
+  }
+
   protected getCart(): void {
     this.requesting = true;
     this.cartService
@@ -74,5 +102,29 @@ export class CartComponent implements OnInit {
         this._cart = res.body[0] || null;
         this.requesting = false;
       });
+    this.cartIngredients.push(
+      {
+        id: 1,
+        name: 't1',
+        amount: 200,
+        unitAbbrev: 'g',
+        status: Status.PENDING,
+      },
+      {
+        id: 2,
+        name: 't2',
+        amount: 100,
+        unitAbbrev: 'ml',
+        status: Status.ACTIVE,
+      },
+      {
+        id: 3,
+        name: 't3',
+        amount: 50,
+        unitAbbrev: 'kg',
+        status: Status.PENDING,
+      }
+    );
+    this._filterList();
   }
 }

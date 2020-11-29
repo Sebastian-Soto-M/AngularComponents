@@ -1,36 +1,54 @@
 <mat-card class="mat-elevation-z2" tabindex="-1">
-  <mat-card-title-group>
-    <mat-card-title>Cart</mat-card-title>
-    <mat-card-subtitle>{{ cartInfo | async }}</mat-card-subtitle>
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Cart menu">
-      <mat-icon>more_vert</mat-icon>
-      <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-          <mat-icon>visibility</mat-icon>
-          <span>Toggle visible selections</span>
+    <mat-card-title-group>
+        <mat-card-title>Cart</mat-card-title>
+        <mat-card-subtitle>{{ cartInfo | async }}</mat-card-subtitle>
+        <button
+            mat-icon-button
+            [matMenuTriggerFor]="menu"
+            aria-label="Cart menu"
+        >
+            <mat-icon>more_vert</mat-icon>
+            <mat-menu #menu="matMenu">
+                <button
+                    mat-menu-item
+                    role="menuitemradio"
+                    (click)="toggleVisibility()"
+                >
+                    <mat-icon>visibility</mat-icon>
+                    <span *ngIf="!visibilityAll">See all items</span>
+                    <span *ngIf="visibilityAll">Hide selected items</span>
+                </button>
+                <button mat-menu-item>
+                    <mat-icon>check_box</mat-icon>
+                    <span>Select all items</span>
+                </button>
+                <button mat-menu-item>
+                    <mat-icon>check_box_outline_blank</mat-icon>
+                    <span>Select all items</span>
+                </button>
+                <button mat-menu-item disabled>
+                    <mat-icon>history</mat-icon>
+                    <span>History (Coming soon)</span>
+                </button>
+            </mat-menu>
         </button>
-        <button mat-menu-item>
-          <mat-icon>check_box</mat-icon>
-          <span>Select all items</span>
+    </mat-card-title-group>
+    <mat-card-content>
+        <mat-divider></mat-divider>
+        <app-cart-list
+            (itemUpdate)="updateCartIngredients($event)"
+            [list]="visibleCartIngredients"
+        ></app-cart-list>
+    </mat-card-content>
+    <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-mini-fab disabled>
+            <span>
+                {{ visibleCartIngredients.length }}/{{ cartIngredients.length }}
+            </span>
         </button>
-        <button mat-menu-item>
-          <mat-icon>check_box_outline_blank</mat-icon>
-          <span>Select all items</span>
-        </button>
-        <button mat-menu-item disabled>
-          <mat-icon>history</mat-icon>
-          <span>History (Coming soon)</span>
-        </button>
-      </mat-menu>
-    </button>
-  </mat-card-title-group>
-  <mat-card-content>
-    <mat-divider></mat-divider>
-    <app-cart-list [list]="cartIngredients"></app-cart-list>
-    <mat-divider></mat-divider>
-  </mat-card-content>
-  <mat-card-actions align="end">
-    <button mat-button (click)="this.closeCart()">Close</button>
-    <button mat-raised-button color="primary">Add Ingredients</button>
-  </mat-card-actions>
+        <div fxLayout="row">
+            <button mat-button (click)="this.closeCart()">Close</button>
+            <button mat-raised-button color="primary">Add Ingredients</button>
+        </div>
+    </mat-card-actions>
 </mat-card>

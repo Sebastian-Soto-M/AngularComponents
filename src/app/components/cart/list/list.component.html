@@ -1,6 +1,6 @@
 <mat-list [ngSwitch]="list.length > 0">
   <div *ngSwitchCase="true">
-    <mat-list-item *ngFor="let item of list">
+    <mat-list-item *ngFor="let item of list; let i = index">
       <img
         *ngIf="item.image"
         [src]="item.image"
@@ -14,19 +14,18 @@
       <div matLine>
         {{ item.amount }} <strong>{{ item.unitAbbrev }}</strong>
       </div>
-      <button mat-icon-button>
+      <button mat-icon-button (click)="delete(i)">
         <mat-icon color="warn">delete</mat-icon>
       </button>
-      <button mat-icon-button>
+      <button mat-icon-button (click)="info(i)">
         <mat-icon color="primary">info</mat-icon>
       </button>
-      <button mat-icon-button [ngSwitch]="item.status">
-        <mat-icon *ngSwitchCase="'Pending'" color="accent">check_box</mat-icon>
+      <button mat-icon-button [ngSwitch]="item.status" (click)="toggle(i)">
+        <mat-icon *ngSwitchCase="'Active'" color="accent">check_box</mat-icon>
         <mat-icon *ngSwitchDefault>check_box_outline_blank</mat-icon>
       </button>
     </mat-list-item>
   </div>
-
   <div *ngSwitchDefault>
     <mat-list-item>
       <mat-icon color="primary" matListIcon>view_list</mat-icon>
