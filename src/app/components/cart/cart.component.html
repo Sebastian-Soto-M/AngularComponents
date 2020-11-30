@@ -2,6 +2,7 @@
     <mat-card-title-group>
         <mat-card-title>Cart</mat-card-title>
         <mat-card-subtitle>{{ cartInfo | async }}</mat-card-subtitle>
+        <!-- right corner menu -->
         <button
             mat-icon-button
             [matMenuTriggerFor]="menu"
@@ -35,11 +36,13 @@
     </mat-card-title-group>
     <mat-card-content>
         <mat-divider></mat-divider>
+        <!-- cart list -->
         <app-cart-list
             (itemUpdate)="updateCartIngredients($event)"
             [list]="visibleCartIngredients"
         ></app-cart-list>
     </mat-card-content>
+    <!-- bottom buttons -->
     <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
         <button mat-mini-fab disabled>
             <span>

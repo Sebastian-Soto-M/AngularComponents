@@ -1,6 +1,9 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ICartIngredient } from 'src/app/entities/cart-ingredient.model';
 import { Status } from 'src/app/status.enum';
+import { InfoComponent } from '../dialog/info/info.component';
+import { RemoveComponent } from '../dialog/remove/remove.component';
 
 @Component({
   selector: 'app-cart-list',
@@ -11,17 +14,27 @@ export class ListComponent implements OnInit {
   @Input() list!: ICartIngredient[];
   @Output() itemUpdate = new EventEmitter<ICartIngredient>();
 
-  constructor() {}
+  constructor(public dialog: MatDialog) {}
 
   ngOnInit(): void {}
 
   delete(i: number) {
-    alert('delete the item ' + i);
+    const dialogRef = this.dialog.open(RemoveComponent, {
+      data: {
+        title: 'HI',
+      },
+    });
+    dialogRef.afterClosed();
     this.itemUpdate.emit(this.list[i]);
   }
 
   info(i: number) {
-    alert('info from item ' + i);
+    const dialogRef = this.dialog.open(InfoComponent, {
+      data: {
+        title: 'HI',
+      },
+    });
+    dialogRef.afterClosed();
   }
 
   toggle(i: number) {

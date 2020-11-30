@@ -4,7 +4,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatDialogModule } from '@angular/material/dialog';
+import {
+  MatDialogModule,
+  MAT_DIALOG_DEFAULT_OPTIONS,
+} from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,6 +22,19 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatBadgeModule } from '@angular/material/badge';
 
 @NgModule({
+  providers: [
+    {
+      provide: MAT_DIALOG_DEFAULT_OPTIONS,
+      useValue: {
+        maxWidth: '1000px',
+        maxHeight: '90%',
+        width: '90%',
+        autoFocus: true,
+        disableClose: false,
+        hasBackdrop: true,
+      },
+    },
+  ],
   exports: [
     MatButtonModule,
     MatCardModule,

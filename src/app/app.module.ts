@@ -28,6 +28,12 @@ import { PanelComponent as IngredientPickerPanelComponent } from './components/i
 import { SelectionComponent as IngredientPickerSelectionComponent } from './components/ingredient-picker/selection/selection.component';
 import { SelectionListComponent as IngredientPickerSelectionListComponent } from './components/ingredient-picker/selection-list/selection-list.component';
 
+// Cart
+import { CartComponent } from './components/cart/cart.component';
+import { ListComponent as CartIngredientListComponent } from './components/cart/list/list.component';
+import { InfoComponent as CartIngredientInfoComponent } from './components/cart/dialog/info/info.component';
+import { RemoveComponent as CartIngredientRemoveComponent } from './components/cart/dialog/remove/remove.component';
+
 // UI Components
 import { IngredientPickerComponent } from './components/ingredient-picker/ingredient-picker.component';
 import { IngredientTagPickerComponent } from './components/ingredient-tag-picker/ingredient-tag-picker.component';
@@ -41,12 +47,11 @@ import { TagFilterPipe } from './util/tag-filter.pipe';
 import { RecipeTagService } from './service/recipe-tag.service';
 import { IngredientPickerFormService } from './components/ingredient-picker/ingredient-picker-form.service';
 import { IngredientService } from './service/ingredient.service';
+
 // Navigation
 import { HomeComponent } from './layout/views/home/home.component';
 import { NavigationComponent } from './layout/navigation/navigation.component';
 import { PickersComponent } from './layout/views/pickers/pickers.component';
-import { CartComponent } from './components/cart/cart.component';
-import { ListComponent } from './components/cart/list/list.component';
 
 @NgModule({
   declarations: [
@@ -56,8 +61,14 @@ import { ListComponent } from './components/cart/list/list.component';
     BasePickerDialogComponent,
     BasePickerListComponent,
     BasePickerPanelComponent,
+
+    CartComponent,
+    CartIngredientInfoComponent,
+    CartIngredientListComponent,
+    CartIngredientRemoveComponent,
+
     HomeComponent,
-    IngredientFilterPipe,
+
     IngredientPickerComponent,
     IngredientPickerDialogComponent,
     IngredientPickerListComponent,
@@ -65,16 +76,17 @@ import { ListComponent } from './components/cart/list/list.component';
     IngredientPickerSelectionComponent,
     IngredientPickerSelectionListComponent,
     IngredientTagPickerComponent,
+
     NavigationComponent,
-    RecipeTagPickerComponent,
-    TagFilterPipe,
     PickersComponent,
-    CartComponent,
-    ListComponent,
+    RecipeTagPickerComponent,
+
+    IngredientFilterPipe,
+    TagFilterPipe,
   ],
   imports: [
-    AppRoutingModule,
     AppMaterialModule,
+    AppRoutingModule,
     BrowserAnimationsModule,
     BrowserModule,
     FlexLayoutModule,
@@ -83,7 +95,8 @@ import { ListComponent } from './components/cart/list/list.component';
     LayoutModule,
     ReactiveFormsModule,
   ],
-  providers: [RecipeTagService, IngredientService, IngredientPickerFormService],
+  entryComponents: [CartIngredientInfoComponent, CartIngredientRemoveComponent],
+  providers: [IngredientPickerFormService, IngredientService, RecipeTagService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
