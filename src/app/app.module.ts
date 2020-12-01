@@ -52,6 +52,11 @@ import { IngredientService } from './service/ingredient.service';
 import { HomeComponent } from './layout/views/home/home.component';
 import { NavigationComponent } from './layout/navigation/navigation.component';
 import { PickersComponent } from './layout/views/pickers/pickers.component';
+import { CartHasIngredientService } from './service/cart-has-ingredient.service';
+import { CartService } from './service/cart.service';
+import { CurrentCartService } from './service/current-cart.service';
+import { CartHasRecipeService } from './service/cart-has-recipe.service';
+import { TestsComponent } from './layout/views/tests/tests.component';
 
 @NgModule({
   declarations: [
@@ -83,6 +88,7 @@ import { PickersComponent } from './layout/views/pickers/pickers.component';
 
     IngredientFilterPipe,
     TagFilterPipe,
+    TestsComponent,
   ],
   imports: [
     AppMaterialModule,
@@ -96,7 +102,15 @@ import { PickersComponent } from './layout/views/pickers/pickers.component';
     ReactiveFormsModule,
   ],
   entryComponents: [CartIngredientInfoComponent, CartIngredientRemoveComponent],
-  providers: [IngredientPickerFormService, IngredientService, RecipeTagService],
+  providers: [
+    CartHasIngredientService,
+    CartHasRecipeService,
+    CartService,
+    CurrentCartService,
+    IngredientPickerFormService,
+    IngredientService,
+    RecipeTagService,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

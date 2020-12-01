@@ -1,0 +1,7 @@
+<button mat-raised-button color="primary" (click)="addPet()">Add a pet</button>
+<mat-list>
+    <mat-list-item *ngFor="let element of pets">
+        {{ element.name }}
+    </mat-list-item>
+</mat-list>
+

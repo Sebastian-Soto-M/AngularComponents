@@ -60,8 +60,41 @@ let db = {
       userLogin: "snsm",
     },
   ],
-  "cart-has-ingredients": [],
-  "cart-has-recipes": [],
+  "cart-has-ingredients": [
+    {
+      amount: 100,
+      cartId: 1,
+      id: 2,
+      ingredientId: 2,
+      ingredientName: "name2",
+      status: "ACTIVE",
+    },
+    {
+      amount: 100,
+      cartId: 1,
+      id: 3,
+      ingredientId: 3,
+      ingredientName: "name3",
+      status: "PENDING",
+    },
+    {
+      amount: 300,
+      cartId: 1,
+      id: 4,
+      ingredientId: 4,
+      ingredientName: "name4",
+      status: "ACTIVE",
+    },
+  ],
+  "cart-has-recipes": [
+    {
+      cartId: 1,
+      id: 1,
+      recipeId: 1,
+      recipeName: "string",
+      status: "ACTIVE",
+    },
+  ],
 };
 
 for (let i = 0; i < dbSize; i++) {

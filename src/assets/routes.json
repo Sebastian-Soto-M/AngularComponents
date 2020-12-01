@@ -2,5 +2,7 @@
   "/api/*": "/$1",
   "/recipe-tags/all": "/recipe-tags",
   "/ingredient-tags/all": "/ingredient-tags",
-  "/carts?userLogin.equals=:userLogin": "/carts?userLogin_like=:userLogin"
+  "/carts?userLogin.equals=:userLogin": "/carts?userLogin_like=:userLogin",
+  "/carts-has-ingredients?cartId.equals=:cartId": "/carts-has-ingredients?cartId_like=:cartId",
+  "/carts-has-recipes?cartId.equals=:cartId": "/carts-has-recipes?cartId_like=:cartId"
 }
