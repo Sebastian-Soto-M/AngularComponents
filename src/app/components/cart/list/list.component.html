@@ -25,25 +25,26 @@
                 [ngSwitch]="item.status"
                 (click)="toggle(i)"
             >
-                <mat-icon *ngSwitchCase="'Active'" color="accent"
+                <mat-icon *ngSwitchCase="'ACTIVE'" color="accent"
                     >check_box</mat-icon
                 >
                 <mat-icon *ngSwitchDefault>check_box_outline_blank</mat-icon>
             </button>
         </mat-list-item>
     </div>
-    <div *ngSwitchCase="list.length === 0">
+    <div *ngSwitchCase="service.ci.length === 0">
         <mat-list-item>
             <mat-icon color="primary" matListIcon>view_list</mat-icon>
             <div matLine>Seems like there are no ingredients left to buy.</div>
             <div matLine>Add some more, or close the cart.</div>
         </mat-list-item>
     </div>
-    <div *ngSwitchDefault>
-        <mat-list-item>
-            <mat-icon color="primary" matListIcon>view_list</mat-icon>
-            <div matLine>Ready when you need me.</div>
-            <div matLine>Add some ingredients!</div>
-        </mat-list-item>
+    <div *ngSwitchDefault fxLayout="row" fxLayoutAlign="center center">
+        <mat-spinner></mat-spinner>
+        <!-- <mat-list-item> -->
+        <!-- <mat-icon color="primary" matListIcon>view_list</mat-icon> -->
+        <!-- <div matLine>Ready when you need me.</div> -->
+        <!-- <div matLine>Add some ingredients!</div> -->
+        <!-- </mat-list-item> -->
     </div>
 </mat-list>
