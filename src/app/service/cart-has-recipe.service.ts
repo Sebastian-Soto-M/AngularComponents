@@ -46,4 +46,12 @@ export class CartHasRecipeService {
       observe: 'response',
     });
   }
+
+  findByCart(cartId: number): Observable<EntityArrayResponseType> {
+    const options = createRequestOption({ ...{ 'cartId.equals': cartId } });
+    return this.http.get<ICartHasRecipe[]>(this.resourceUrl, {
+      params: options,
+      observe: 'response',
+    });
+  }
 }

@@ -18,14 +18,12 @@ export class ListComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  delete(i: number) {
+  delete(item: ICartIngredient) {
     const dialogRef = this.dialog.open(RemoveComponent, {
-      data: {
-        title: 'HI',
-      },
+      data: item,
     });
     dialogRef.afterClosed();
-    this.itemUpdate.emit(this.list[i]);
+    this.itemUpdate.emit(item);
   }
 
   info(i: number) {
@@ -38,10 +36,11 @@ export class ListComponent implements OnInit {
   }
 
   toggle(i: number) {
+    console.warn(this.list[i].status);
     this.list[i].status =
-      this.list[i].status === Status.PENDING ? Status.ACTIVE : Status.PENDING;
+      this.list[i].status.toUpperCase() === Status.PENDING.toUpperCase()
+        ? Status.ACTIVE
+        : Status.PENDING;
     this.itemUpdate.emit(this.list[i]);
   }
-
-  //TODO create a pipe to toggle the selected items view on the list.
 }

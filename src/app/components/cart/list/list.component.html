@@ -14,7 +14,7 @@
             <div matLine>
                 {{ item.amount }} <strong>{{ item.unitAbbrev }}</strong>
             </div>
-            <button mat-icon-button (click)="delete(i)">
+            <button mat-icon-button (click)="delete(item)">
                 <mat-icon color="warn">delete</mat-icon>
             </button>
             <button mat-icon-button (click)="info(i)">
