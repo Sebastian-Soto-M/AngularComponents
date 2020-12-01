@@ -14,10 +14,7 @@ type EntityArrayResponseType = HttpResponse<ICartHasIngredient[]>;
 export class CartHasIngredientService {
   public resourceUrl = SERVER_API_URL + 'api/cart-has-ingredients';
 
-  constructor(
-    protected http: HttpClient,
-    private ingredientService: IngredientService
-  ) {}
+  constructor(protected http: HttpClient) {}
 
   create(
     cartHasIngredient: ICartHasIngredient
@@ -33,7 +30,7 @@ export class CartHasIngredientService {
     cartHasIngredient: ICartHasIngredient
   ): Observable<EntityResponseType> {
     return this.http.put<ICartHasIngredient>(
-      this.resourceUrl,
+      `${this.resourceUrl}/${cartHasIngredient.id}`,
       cartHasIngredient,
       { observe: 'response' }
     );

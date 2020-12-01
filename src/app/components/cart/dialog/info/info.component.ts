@@ -23,7 +23,7 @@ export class InfoComponent implements OnInit {
         ...{ 'cartId.equals': this.data.cartId },
       })
       .subscribe((res) => {
-        console.warn(res);
+        console.log(res);
       });
   }
 }

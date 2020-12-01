@@ -1,15 +1,15 @@
-<mat-list [ngSwitch]="list.length > 0">
+<mat-list [ngSwitch]="service.civ.length > 0">
     <div *ngSwitchCase="true">
-        <mat-list-item *ngFor="let item of list; let i = index">
+        <mat-list-item *ngFor="let item of service.civ; let i = index">
             <img
                 *ngIf="item.image"
                 [src]="item.image"
                 alt="List item image"
                 matListAvatar
             />
-            <mat-icon *ngIf="!item.image" color="primary" matListIcon
-                >shopping_cart</mat-icon
-            >
+            <mat-icon *ngIf="!item.image" color="primary" matListIcon>
+                shopping_cart
+            </mat-icon>
             <div matLine>{{ item.name }}</div>
             <div matLine>
                 {{ item.amount }} <strong>{{ item.unitAbbrev }}</strong>
@@ -25,9 +25,9 @@
                 [ngSwitch]="item.status"
                 (click)="toggle(i)"
             >
-                <mat-icon *ngSwitchCase="'ACTIVE'" color="accent"
-                    >check_box</mat-icon
-                >
+                <mat-icon *ngSwitchCase="'ACTIVE'" color="accent">
+                    check_box
+                </mat-icon>
                 <mat-icon *ngSwitchDefault>check_box_outline_blank</mat-icon>
             </button>
         </mat-list-item>

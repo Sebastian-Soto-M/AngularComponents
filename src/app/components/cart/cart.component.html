@@ -15,19 +15,25 @@
                 <button
                     mat-menu-item
                     role="menuitemradio"
-                    (click)="toggleVisibility()"
+                    (click)="this.service.toggleVisibility()"
                 >
                     <mat-icon>visibility</mat-icon>
                     <span *ngIf="!visibilityAll">See all items</span>
                     <span *ngIf="visibilityAll">Hide selected items</span>
                 </button>
-                <button mat-menu-item>
+                <button
+                    mat-menu-item
+                    (click)="service.setStatusToAll('ACTIVE')"
+                >
                     <mat-icon>check_box</mat-icon>
-                    <span>Select all items</span>
+                    <span>Select all</span>
                 </button>
-                <button mat-menu-item>
+                <button
+                    mat-menu-item
+                    (click)="service.setStatusToAll('PENDING')"
+                >
                     <mat-icon>check_box_outline_blank</mat-icon>
-                    <span>Select all items</span>
+                    <span>Deselect all</span>
                 </button>
                 <button mat-menu-item disabled>
                     <mat-icon>history</mat-icon>
@@ -39,10 +45,7 @@
     <mat-card-content>
         <mat-divider></mat-divider>
         <!-- cart list -->
-        <app-cart-list
-            (itemUpdate)="updateCartIngredients($event)"
-            [list]="visibleCartIngredients"
-        ></app-cart-list>
+        <app-cart-list></app-cart-list>
     </mat-card-content>
     <!-- bottom buttons -->
     <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
@@ -52,7 +55,7 @@
             </span>
         </button>
         <div fxLayout="row">
-            <button mat-button (click)="this.closeCart()">Close</button>
+            <button mat-button (click)="printList()">Close</button>
             <button mat-raised-button color="primary">Add Ingredients</button>
         </div>
     </mat-card-actions>
