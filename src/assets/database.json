@@ -836,6 +836,38 @@
       "ingredientId": 4,
       "ingredientName": "name4",
       "status": "ACTIVE"
+    },
+    {
+      "amount": 1,
+      "status": "PENDING",
+      "cartId": 1,
+      "ingredientName": "autem",
+      "ingredientId": 9,
+      "id": 5
+    },
+    {
+      "amount": 1,
+      "status": "PENDING",
+      "cartId": 1,
+      "ingredientName": "consectetur",
+      "ingredientId": 26,
+      "id": 6
+    },
+    {
+      "amount": 1,
+      "status": "PENDING",
+      "cartId": 1,
+      "ingredientName": "consequatur",
+      "ingredientId": 1,
+      "id": 7
+    },
+    {
+      "amount": 199,
+      "status": "PENDING",
+      "cartId": 1,
+      "ingredientName": "eaque",
+      "ingredientId": 27,
+      "id": 8
     }
   ],
   "cart-has-recipes": [

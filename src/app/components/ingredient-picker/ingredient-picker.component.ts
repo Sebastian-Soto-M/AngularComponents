@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
+import { CartIngredient } from 'src/app/entities/cart-ingredient.model';
 import { IIngredient } from 'src/app/entities/ingredient.model';
 import { IngredientService } from 'src/app/service/ingredient.service';
+import { Status } from 'src/app/status.enum';
 
 @Component({
   selector: 'app-ingredient-picker',
@@ -30,5 +32,19 @@ export class IngredientPickerComponent implements OnInit {
 
   getIngredients(): any[] {
     return this.form !== undefined ? this.form.value.selections : [];
+  }
+
+  getCartIngredients(): CartIngredient[] {
+    const ingredientList = this.getIngredients();
+    let ciList: CartIngredient[] = [];
+    ingredientList.forEach((item) => {
+      ciList.push({
+        id: item.ingredient.id,
+        name: item.ingredient.name,
+        amount: item.amount,
+        status: Status.PENDING.toUpperCase() as Status,
+      });
+    });
+    return ciList;
   }
 }

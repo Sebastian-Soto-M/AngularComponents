@@ -1,6 +1,6 @@
 import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, forkJoin, Observable, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { ICartHasIngredient } from '../entities/cart-has-ingredient.model';
 import { ICartHasRecipe } from '../entities/cart-has-recipe.model';
@@ -82,6 +82,21 @@ export class CurrentCartService {
       userLogin: c.userLogin,
       status: Status.ACTIVE,
     });
+  }
+
+  addIngredients(ingredientList: ICartIngredient[]): void {
+    let createObservables: Observable<HttpResponse<ICartHasIngredient>>[] = [];
+    ingredientList.forEach((ing) => {
+      const chi = {
+        amount: ing.amount,
+        status: ing.status,
+        cartId: this.cart.id,
+        ingredientName: ing.name,
+        ingredientId: ing.id,
+      };
+      createObservables.push(this.cartHasIngredientService.create(chi));
+    });
+    forkJoin(createObservables).subscribe();
   }
 
   updateCart(): void {}

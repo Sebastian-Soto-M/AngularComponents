@@ -1,8 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Account } from 'src/app/entities/account.model';
 import { ICartIngredient } from 'src/app/entities/cart-ingredient.model';
 import { CartService } from 'src/app/service/cart.service';
 import { CurrentCartService } from 'src/app/service/current-cart.service';
+import { Status } from 'src/app/status.enum';
+import { AddComponent } from './dialog/add/add.component';
 
 @Component({
   selector: 'app-cart',
@@ -12,14 +15,15 @@ import { CurrentCartService } from 'src/app/service/current-cart.service';
 export class CartComponent implements OnInit {
   @Input() account!: Account;
 
-  visibleCartIngredients: ICartIngredient[] = [];
+  act = Status.ACTIVE;
+  pen = Status.PENDING;
 
-  requesting = false;
   visibilityAll = false;
 
   constructor(
     public cartService: CartService,
-    public service: CurrentCartService
+    public service: CurrentCartService,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit(): void {
@@ -34,5 +38,11 @@ export class CartComponent implements OnInit {
 
   closeCart(): void {
     this.service.close();
+  }
+
+  openAdd(): void {
+    const dialogRef = this.dialog.open(AddComponent, {
+      panelClass: 'addDialog',
+    });
   }
 }

@@ -21,17 +21,11 @@
                     <span *ngIf="!visibilityAll">See all items</span>
                     <span *ngIf="visibilityAll">Hide selected items</span>
                 </button>
-                <button
-                    mat-menu-item
-                    (click)="service.setStatusToAll('ACTIVE')"
-                >
+                <button mat-menu-item (click)="service.setStatusToAll(act)">
                     <mat-icon>check_box</mat-icon>
                     <span>Select all</span>
                 </button>
-                <button
-                    mat-menu-item
-                    (click)="service.setStatusToAll('PENDING')"
-                >
+                <button mat-menu-item (click)="service.setStatusToAll(pen)">
                     <mat-icon>check_box_outline_blank</mat-icon>
                     <span>Deselect all</span>
                 </button>
@@ -50,13 +44,13 @@
     <!-- bottom buttons -->
     <mat-card-actions fxLayout="row" fxLayoutAlign="space-between center">
         <button mat-mini-fab disabled>
-            <span>
-                {{ visibleCartIngredients.length }}/{{ service.ci.length }}
-            </span>
+            <span> {{ service.civ.length }}/{{ service.ci.length }} </span>
         </button>
         <div fxLayout="row">
-            <button mat-button (click)="printList()">Close</button>
-            <button mat-raised-button color="primary">Add Ingredients</button>
+            <button mat-button>Close Cart</button>
+            <button mat-raised-button color="primary" (click)="openAdd()">
+                Add Ingredients
+            </button>
         </div>
     </mat-card-actions>
 </mat-card>
