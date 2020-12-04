@@ -31,8 +31,9 @@ import { SelectionListComponent as IngredientPickerSelectionListComponent } from
 // Cart
 import { CartComponent } from './components/cart/cart.component';
 import { ListComponent as CartIngredientListComponent } from './components/cart/list/list.component';
-import { InfoComponent as CartIngredientInfoComponent } from './components/cart/dialog/info/info.component';
-import { RemoveComponent as CartIngredientRemoveComponent } from './components/cart/dialog/remove/remove.component';
+import { AddIngredientsComponent as CartAddIngredientsComponent } from './components/cart/dialog/add-ingredients/add-ingredients.component';
+import { InfoIngredientComponent as CartIngredientInfoComponent } from './components/cart/dialog/info-ingredient/info-ingredient.component';
+import { RemoveIngredientComponent as CartIngredientRemoveComponent } from './components/cart/dialog/remove-ingredient/remove-ingredient.component';
 
 // UI Components
 import { IngredientPickerComponent } from './components/ingredient-picker/ingredient-picker.component';
@@ -54,10 +55,10 @@ import { NavigationComponent } from './layout/navigation/navigation.component';
 import { PickersComponent } from './layout/views/pickers/pickers.component';
 import { CartHasIngredientService } from './service/cart-has-ingredient.service';
 import { CartService } from './service/cart.service';
+import { CartIngredientService } from './service/cart-ingredient.service';
 import { CurrentCartService } from './service/current-cart.service';
 import { CartHasRecipeService } from './service/cart-has-recipe.service';
 import { TestsComponent } from './layout/views/tests/tests.component';
-import { AddComponent } from './components/cart/dialog/add/add.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +70,7 @@ import { AddComponent } from './components/cart/dialog/add/add.component';
     BasePickerPanelComponent,
 
     CartComponent,
+    CartAddIngredientsComponent,
     CartIngredientInfoComponent,
     CartIngredientListComponent,
     CartIngredientRemoveComponent,
@@ -90,7 +92,6 @@ import { AddComponent } from './components/cart/dialog/add/add.component';
     IngredientFilterPipe,
     TagFilterPipe,
     TestsComponent,
-    AddComponent,
   ],
   imports: [
     AppMaterialModule,
@@ -103,9 +104,14 @@ import { AddComponent } from './components/cart/dialog/add/add.component';
     LayoutModule,
     ReactiveFormsModule,
   ],
-  entryComponents: [CartIngredientInfoComponent, CartIngredientRemoveComponent],
+  entryComponents: [
+    CartAddIngredientsComponent,
+    CartIngredientInfoComponent,
+    CartIngredientRemoveComponent,
+  ],
   providers: [
     CartHasIngredientService,
+    CartIngredientService,
     CartHasRecipeService,
     CartService,
     CurrentCartService,
