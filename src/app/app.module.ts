@@ -59,6 +59,7 @@ import { CartIngredientService } from './service/cart-ingredient.service';
 import { CurrentCartService } from './service/current-cart.service';
 import { CartHasRecipeService } from './service/cart-has-recipe.service';
 import { TestsComponent } from './layout/views/tests/tests.component';
+import { ItemComponent as CartIngredientListItemComponent } from './components/cart/list/item/item.component';
 
 @NgModule({
   declarations: [
@@ -92,6 +93,7 @@ import { TestsComponent } from './layout/views/tests/tests.component';
     IngredientFilterPipe,
     TagFilterPipe,
     TestsComponent,
+    CartIngredientListItemComponent,
   ],
   imports: [
     AppMaterialModule,

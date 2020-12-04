@@ -1,2 +1,18 @@
-{{ visibility }}
-{{ civ.length }}
+<mat-list [ngSwitch]="civ.length > 0">
+    <div *ngSwitchCase="true">
+        <app-cart-list-item
+            *ngFor="let item of civ"
+            [ci]="item"
+        ></app-cart-list-item>
+    </div>
+    <div *ngSwitchCase="service.ci.length === 0">
+        <mat-list-item>
+            <mat-icon color="primary" matListIcon>view_list</mat-icon>
+            <div matLine>Seems like there are no ingredients left to buy.</div>
+            <div matLine>Add some more, or close the cart.</div>
+        </mat-list-item>
+    </div>
+    <div *ngSwitchDefault fxLayout="row" fxLayoutAlign="center center">
+        <mat-spinner></mat-spinner>
+    </div>
+</mat-list>

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ICartIngredient } from 'src/app/entities/cart-ingredient.model';
 import { CurrentCartService } from 'src/app/service/current-cart.service';
@@ -11,6 +11,7 @@ import { CurrentCartService } from 'src/app/service/current-cart.service';
 export class ListComponent implements OnInit {
   @Input() visibilityAll$: BehaviorSubject<boolean>;
   visibility = true;
+  totalIngredients = 0;
 
   civ: ICartIngredient[] = [];
 
@@ -25,6 +26,7 @@ export class ListComponent implements OnInit {
     this.civ = this.service.ci;
     this.service.ci$.subscribe(() => {
       this.setVisible();
+      this.totalIngredients = this.service.ci.length;
     });
   }
 

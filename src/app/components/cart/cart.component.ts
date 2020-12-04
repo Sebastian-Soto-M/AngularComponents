@@ -20,10 +20,10 @@ export class CartComponent implements OnInit {
   act = Status.ACTIVE;
   pen = Status.PENDING;
 
-  requesting = false;
+  requesting = true;
+  stats = '0/0';
 
   cart: ICart;
-  ci: ICartIngredient[] = [];
 
   visibilityAll$ = new BehaviorSubject<boolean>(true);
 
@@ -34,6 +34,7 @@ export class CartComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.service.stats$.subscribe((x) => (this.stats = x));
     if (this.service.cart === undefined) this.initializeCart();
   }
 
@@ -50,14 +51,11 @@ export class CartComponent implements OnInit {
   }
 
   private initializeCart(): void {
-    this.requesting = true;
     this.cartService
       .query({ ...{ 'userLogin.equals': this.account.login } })
       .subscribe((response) => {
         this.service.setCart(response.body[0]);
+        this.requesting = false;
       });
-
-    // this.service.ci$.subscribe((ci) =>
-    // this.service.insertNewCartIngredient(ci)}
   }
 }

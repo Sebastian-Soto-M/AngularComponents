@@ -21,6 +21,8 @@ export class CurrentCartService {
   ci: ICartIngredient[] = [];
   cartInfo$: Observable<string>;
 
+  stats$ = new BehaviorSubject<string>('0/0');
+
   ci$ = new Subject<ICartIngredient>();
 
   constructor(
@@ -42,6 +44,7 @@ export class CurrentCartService {
 
   unsubscribe(): void {
     this.ci$.unsubscribe();
+    this.stats$.unsubscribe();
   }
 
   setCartIngredients(): void {
@@ -53,7 +56,10 @@ export class CurrentCartService {
           this.iService.find(chi.ingredientId).subscribe((ing) => {
             if (ing.body !== null) {
               let obs = of(this.cartIngredientService.map(ing.body, chi));
-              obs.subscribe((x) => this.ci.push(x));
+              obs.subscribe((x) => {
+                this.ci.push(x);
+                this.stats$.next(this.getFraction());
+              });
               queries.push(obs);
             }
           });
@@ -62,5 +68,15 @@ export class CurrentCartService {
     });
 
     forkJoin(queries).subscribe();
+  }
+
+  private getFraction(): string {
+    return `${this.getAmountSelected()}/${this.ci.length}`;
+  }
+
+  private getAmountSelected(): number {
+    return this.ci.filter((x) => {
+      return x.status.toUpperCase() === 'ACTIVE';
+    }).length;
   }
 }
