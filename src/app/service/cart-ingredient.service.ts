@@ -1,33 +1,29 @@
 import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { ICartHasIngredient } from '../entities/cart-has-ingredient.model';
 import { ICartIngredient } from '../entities/cart-ingredient.model';
 import { IIngredient } from '../entities/ingredient.model';
 import { Status } from '../status.enum';
 import { CartHasIngredientService } from './cart-has-ingredient.service';
+import { IngredientService } from './ingredient.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartIngredientService {
-  constructor(private chiService: CartHasIngredientService) {}
+  ci: ICartIngredient[] = [];
+  constructor(
+    private chiService: CartHasIngredientService,
+    private iService: IngredientService
+  ) {}
 
-  create(
-    ci: ICartIngredient,
-    cartId: number
-  ): Observable<HttpResponse<ICartHasIngredient>> {
-    return this.chiService.create({
-      amount: ci.amount,
-      status: ci.status,
-      cartId: cartId,
-      ingredientName: ci.name,
-      ingredientId: ci.id,
-    });
+  create(ci: ICartIngredient): Observable<HttpResponse<ICartHasIngredient>> {
+    return this.chiService.create(this.unmap(ci));
   }
 
   update(ci: ICartIngredient): Observable<HttpResponse<ICartHasIngredient>> {
-    return this.chiService.update(ci);
+    return this.chiService.update(this.unmap(ci));
   }
 
   toggleStatus(
@@ -54,6 +50,16 @@ export class CartIngredientService {
       unitAbbrev: i.unitAbbrev,
       cartId: chi.cartId,
       status: chi.status,
+    };
+  }
+
+  unmap(ci: ICartIngredient): ICartHasIngredient {
+    return {
+      amount: ci.amount,
+      status: ci.status,
+      cartId: ci.cartId,
+      ingredientName: ci.name,
+      ingredientId: ci.id,
     };
   }
 }

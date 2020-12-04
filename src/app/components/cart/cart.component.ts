@@ -1,8 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject } from 'rxjs';
 import { Account } from 'src/app/entities/account.model';
 import { ICartIngredient } from 'src/app/entities/cart-ingredient.model';
 import { ICart } from 'src/app/entities/cart.model';
+import { CartService } from 'src/app/service/cart.service';
+import { CurrentCartService } from 'src/app/service/current-cart.service';
+import { Status } from 'src/app/status.enum';
+import { AddIngredientsComponent } from './dialog/add-ingredients/add-ingredients.component';
 
 @Component({
   selector: 'app-cart',
@@ -12,20 +17,47 @@ import { ICart } from 'src/app/entities/cart.model';
 export class CartComponent implements OnInit {
   @Input() account!: Account;
 
+  act = Status.ACTIVE;
+  pen = Status.PENDING;
+
+  requesting = false;
+
   cart: ICart;
   ci: ICartIngredient[] = [];
 
-  visibilityAll$ = new BehaviorSubject<boolean>(false);
+  visibilityAll$ = new BehaviorSubject<boolean>(true);
 
-  constructor() {}
+  constructor(
+    public cartService: CartService,
+    public service: CurrentCartService,
+    public dialog: MatDialog
+  ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if (this.service.cart === undefined) this.initializeCart();
+  }
 
   closeCart(): void {}
 
   saveCart(): void {}
 
-  openAddIngredients(): void {}
+  openAddIngredients(): void {
+    this.dialog.open(AddIngredientsComponent);
+  }
 
-  private initializeCart(): void {}
+  toggleVisibility(): void {
+    this.visibilityAll$.next(!this.visibilityAll$.value);
+  }
+
+  private initializeCart(): void {
+    this.requesting = true;
+    this.cartService
+      .query({ ...{ 'userLogin.equals': this.account.login } })
+      .subscribe((response) => {
+        this.service.setCart(response.body[0]);
+      });
+
+    // this.service.ci$.subscribe((ci) =>
+    // this.service.insertNewCartIngredient(ci)}
+  }
 }
