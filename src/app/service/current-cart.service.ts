@@ -1,7 +1,6 @@
 import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, forkJoin, Observable, Subject } from 'rxjs';
-import { tap } from 'rxjs/operators';
 import { ICartHasIngredient } from '../entities/cart-has-ingredient.model';
 import { ICartHasRecipe } from '../entities/cart-has-recipe.model';
 import { ICartIngredient } from '../entities/cart-ingredient.model';
@@ -24,7 +23,10 @@ export class CurrentCartService {
   ci: ICartIngredient[] = [];
   civ: ICartIngredient[] = [];
 
+  hasChanges = false;
   cartInfo$: Observable<string>;
+
+  chiActions$: Observable<HttpResponse<ICartHasIngredient>>[] = [];
 
   requesting = true;
 
@@ -36,26 +38,9 @@ export class CurrentCartService {
     private cartHasRecipeService: CartHasRecipeService,
     private ingredientService: IngredientService,
     private cartService: CartService
-  ) {
-    this.cart$.subscribe((b) => {
-      this.cart = b;
-      this.cartInfo$ = new Observable<string>((obs) => {
-        setInterval(() => {
-          obs.next(`Created ${this.cart.created.fromNow()}`);
-        }, 1000);
-      });
-    });
-    this.ci$.subscribe((x) => {
-      this.ci.push(x);
-      this.civ = this.getVisibleItems();
-    });
-    this.visibility$.subscribe((viewAll) => {
-      this._statusList = viewAll ? ['PENDING', 'ACTIVE'] : ['PENDING'];
-      this.civ = this.getVisibleItems();
-    });
-  }
+  ) {}
 
-  // Actions
+  // Status Actions
   toggleStatus(index: number): void {
     const i = this.ci[this.ci.indexOf(this.civ[index])]; // ingredient
     i.status =
@@ -70,11 +55,24 @@ export class CurrentCartService {
     this.civ = this.getVisibleItems();
   }
 
+  // Visibility
   toggleVisibility(): void {
     this.visibility$.next(!this.visibility$.value);
   }
 
-  close(): void {
+  getVisibleItems(): ICartIngredient[] {
+    return this.ci
+      .filter((x) => {
+        return this._statusList.includes(x.status.toUpperCase());
+      })
+      .sort((a: any, b: any) => {
+        let x = a.status.toUpperCase(),
+          y = b.status.toUpperCase();
+        return y.localeCompare(x);
+      });
+  }
+
+  closeCart(): void {
     const c = this.cart$.value;
     this.cartService.delete(c.id);
     this.cartService.create({
@@ -84,31 +82,9 @@ export class CurrentCartService {
     });
   }
 
-  addIngredients(ingredientList: ICartIngredient[]): void {
-    let createObservables: Observable<HttpResponse<ICartHasIngredient>>[] = [];
-    ingredientList.forEach((ing) => {
-      const chi = {
-        amount: ing.amount,
-        status: ing.status,
-        cartId: this.cart.id,
-        ingredientName: ing.name,
-        ingredientId: ing.id,
-      };
-      createObservables.push(this.cartHasIngredientService.create(chi));
-    });
-    forkJoin(createObservables).subscribe();
-  }
-
-  updateCart(): void {}
-  // Actions
-
-  // Data setup
+  // Ingredients
   getCartIngredients(): Observable<HttpResponse<ICartHasIngredient[]>> {
     return this.cartHasIngredientService.findByCart(this.cart$.value.id);
-  }
-
-  getCartRecipes(): Observable<HttpResponse<ICartHasRecipe[]>> {
-    return this.cartHasRecipeService.findByCart(this.cart$.value.id);
   }
 
   loadCartCompleteIngredients(): void {
@@ -126,20 +102,24 @@ export class CurrentCartService {
     });
   }
 
-  getVisibleItems(): ICartIngredient[] {
-    return this.ci
-      .filter((x) => {
-        return this._statusList.includes(x.status.toUpperCase());
-      })
-      .sort((a: any, b: any) => {
-        const x = a.status,
-          y = b.status;
-        return a.status === Status.PENDING || x.status < y.status
-          ? 0
-          : x.status === Status.PENDING
-          ? 1
-          : -1;
-      });
+  addIngredients(ingredientList: ICartIngredient[]): void {
+    ingredientList.forEach((ing) => {
+      const chi = {
+        amount: ing.amount,
+        status: ing.status,
+        cartId: this.cart.id,
+        ingredientName: ing.name,
+        ingredientId: ing.id,
+      };
+      this.chiActions$.push(this.cartHasIngredientService.create(chi));
+    });
+  }
+
+  removeIngredient(item: ICartIngredient): void {
+    this.ci.splice(this.ci.indexOf(item), 1);
+    this.civ = this.getVisibleItems();
+    this.chiActions$.push(this.cartHasIngredientService.delete(item.id));
+    this.hasChanges = true;
   }
 
   private buildCartIngredient(
@@ -157,5 +137,34 @@ export class CurrentCartService {
       status: chi.status,
     };
   }
-  // Data setup
+
+  // Actions
+  getCartRecipes(): Observable<HttpResponse<ICartHasRecipe[]>> {
+    return this.cartHasRecipeService.findByCart(this.cart$.value.id);
+  }
+
+  // Subscriptions
+  setCart(c: ICart) {
+    this.cart = c;
+    this.cartInfo$ = new Observable<string>((obs) => {
+      setInterval(() => {
+        obs.next(`Created ${this.cart.created.fromNow()}`);
+      }, 1000);
+    });
+  }
+
+  insertNewCartIngredient(ci: ICartIngredient) {
+    this.ci.push(ci);
+    this.civ = this.getVisibleItems();
+  }
+
+  setVisibleItems(viewAll: boolean) {
+    this._statusList = viewAll ? ['PENDING', 'ACTIVE'] : ['PENDING'];
+    this.civ = this.getVisibleItems();
+  }
+
+  subscribeActions() {
+    forkJoin(this.chiActions$).subscribe();
+    this.chiActions$ = [];
+  }
 }

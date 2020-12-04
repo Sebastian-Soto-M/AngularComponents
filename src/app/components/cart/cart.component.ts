@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Account } from 'src/app/entities/account.model';
-import { ICartIngredient } from 'src/app/entities/cart-ingredient.model';
 import { CartService } from 'src/app/service/cart.service';
 import { CurrentCartService } from 'src/app/service/current-cart.service';
 import { Status } from 'src/app/status.enum';
@@ -27,22 +26,39 @@ export class CartComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.cartService
-      .query({ ...{ 'userLogin.equals': this.account.login } })
-      .subscribe((response) => {
-        this.service.cart$.next(response.body[0]);
-        this.service.loadCartCompleteIngredients();
-      });
-    this.service.visibility$.subscribe((x) => (this.visibilityAll = x));
+    if (this.service.cart === undefined) {
+      this.initializeCurrentCartService();
+    }
   }
 
   closeCart(): void {
-    this.service.close();
+    this.service.closeCart();
   }
 
   openAdd(): void {
     const dialogRef = this.dialog.open(AddComponent, {
       panelClass: 'addDialog',
     });
+  }
+
+  private initializeCurrentCartService() {
+    this.cartService
+      .query({ ...{ 'userLogin.equals': this.account.login } })
+      .subscribe((response) => {
+        this.service.cart$.next(response.body[0]);
+        this.service.loadCartCompleteIngredients();
+      });
+
+    this.service.visibility$.subscribe((x) => (this.visibilityAll = x));
+
+    this.service.cart$.subscribe((c) => this.service.setCart(c));
+
+    this.service.ci$.subscribe((ci) =>
+      this.service.insertNewCartIngredient(ci)
+    );
+
+    this.service.visibility$.subscribe((viewAll) =>
+      this.service.setVisibleItems(viewAll)
+    );
   }
 }

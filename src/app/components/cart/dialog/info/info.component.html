@@ -1,1 +1,31 @@
-<p>info works!</p>
+<mat-card class="mat-elevation-z0" style="padding: 0px">
+    <mat-card-header fxLayout="row" fxLayoutAlign="start none">
+        <div fxLayout="row">
+            <img
+                *ngIf="data.image"
+                [src]="data.image"
+                alt="List data image"
+                matCardAvatar
+            />
+            <div fxLayout="column">
+                <mat-icon *ngIf="!data.image" color="primary" matCardAvatar>
+                    shopping_cart
+                </mat-icon>
+                <mat-card-title>{{ data.name }}</mat-card-title>
+                <mat-card-subtitle>
+                    {{ data.amount }}
+                    <strong>{{ data.unitAbbrev }}</strong>
+                </mat-card-subtitle>
+            </div>
+        </div>
+        <button mat-icon-button [ngSwitch]="data.status" disabled>
+            <mat-icon *ngSwitchCase="'ACTIVE'">check_box</mat-icon>
+            <mat-icon *ngSwitchDefault>check_box_outline_blank</mat-icon>
+        </button>
+    </mat-card-header>
+    <mat-card-content mat-dialog-content> </mat-card-content>
+    <mat-card-actions mat-dialog-actions align="end">
+        <button mat-button mat-dialog-close>Cancel</button>
+        <button mat-raised-button color="primary" (click)="save()">Save</button>
+    </mat-card-actions>
+</mat-card>

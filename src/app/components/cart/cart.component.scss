@@ -4,6 +4,7 @@
 }
 
 mat-card-content.mat-card-content {
-  height: 50vh;
+  min-height: 50vh;
+  max-height: 55vh;
   overflow-y: auto;
 }

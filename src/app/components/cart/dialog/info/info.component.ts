@@ -26,4 +26,6 @@ export class InfoComponent implements OnInit {
         console.log(res);
       });
   }
+
+  save(): void {}
 }

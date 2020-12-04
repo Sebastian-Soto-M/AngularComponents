@@ -17,21 +17,27 @@ export class ListComponent implements OnInit {
 
   delete(item: ICartIngredient) {
     const dialogRef = this.dialog.open(RemoveComponent, {
+      width: '300px',
+      maxWidth: '400px',
       data: item,
     });
-    dialogRef.afterClosed();
+    dialogRef.afterClosed().subscribe((response) => {
+      if (response) this.remove(response);
+    });
   }
 
-  info(i: number) {
+  info(item: ICartIngredient) {
     const dialogRef = this.dialog.open(InfoComponent, {
-      data: {
-        title: i,
-      },
+      data: item,
     });
     dialogRef.afterClosed();
   }
 
   toggle(i: number) {
     this.service.toggleStatus(i);
+  }
+
+  remove(item: ICartIngredient): void {
+    this.service.removeIngredient(item);
   }
 }
