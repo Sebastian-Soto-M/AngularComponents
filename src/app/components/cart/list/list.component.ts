@@ -21,7 +21,7 @@ export class ListComponent implements OnInit {
     this.visibilityAll$.subscribe((visibility) => {
       this.visibility = visibility;
       this.setVisible();
-      this.service.ci$.next(null);
+      this.service.ci$.next();
     });
     this.civ = this.service.ci;
     this.service.ci$.subscribe(() => {

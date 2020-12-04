@@ -2,13 +2,9 @@ import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, forkJoin, Observable, of, Subject } from 'rxjs';
 import { ICartHasIngredient } from '../entities/cart-has-ingredient.model';
-import { ICartHasRecipe } from '../entities/cart-has-recipe.model';
 import { ICartIngredient } from '../entities/cart-ingredient.model';
 import { ICart } from '../entities/cart.model';
-import { IIngredient } from '../entities/ingredient.model';
-import { Status } from '../status.enum';
 import { CartHasIngredientService } from './cart-has-ingredient.service';
-import { CartHasRecipeService } from './cart-has-recipe.service';
 import { CartIngredientService } from './cart-ingredient.service';
 import { CartService } from './cart.service';
 import { IngredientService } from './ingredient.service';
@@ -20,10 +16,10 @@ export class CurrentCartService {
   cart: ICart;
   ci: ICartIngredient[] = [];
   cartInfo$: Observable<string>;
-
   stats$ = new BehaviorSubject<string>('0/0');
-
   ci$ = new Subject<ICartIngredient>();
+  hasChanges = false;
+  changes: Observable<HttpResponse<ICartHasIngredient>>[] = [];
 
   constructor(
     private cartIngredientService: CartIngredientService,
@@ -31,6 +27,15 @@ export class CurrentCartService {
     private iService: IngredientService,
     private cartService: CartService
   ) {}
+
+  deleteCartIngredient(ci: ICartIngredient): void {
+    this.changes.push(this.cartIngredientService.delete(ci));
+    this.ci.splice(
+      this.ci.findIndex((x) => x.id === ci.id),
+      1
+    );
+    this.ci$.next();
+  }
 
   setCart(c: ICart): void {
     this.cart = c;
@@ -49,7 +54,6 @@ export class CurrentCartService {
 
   setCartIngredients(): void {
     const queries: Observable<ICartIngredient>[] = [];
-
     this.chiService.findByCart(this.cart.id).subscribe((response) => {
       if (response.body !== null) {
         response.body.forEach((chi) => {
@@ -66,17 +70,25 @@ export class CurrentCartService {
         });
       }
     });
-
     forkJoin(queries).subscribe();
   }
 
-  private getFraction(): string {
-    return `${this.getAmountSelected()}/${this.ci.length}`;
+  saveChanges(): void {
+    forkJoin(this.changes).subscribe();
   }
 
-  private getAmountSelected(): number {
-    return this.ci.filter((x) => {
-      return x.status.toUpperCase() === 'ACTIVE';
-    }).length;
+  private getFraction(): string {
+    return `${
+      this.ci.filter((x) => {
+        return x.status.toUpperCase() === 'ACTIVE';
+      }).length
+    }/${this.ci.length}`;
+  }
+
+  private initTasks(): void {
+    this.ci$.subscribe(() => {
+      console.log('ci updated');
+      this.stats$.next(this.getFraction());
+    });
   }
 }

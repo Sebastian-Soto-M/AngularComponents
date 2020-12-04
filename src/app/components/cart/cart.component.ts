@@ -40,7 +40,9 @@ export class CartComponent implements OnInit {
 
   closeCart(): void {}
 
-  saveCart(): void {}
+  saveCart(): void {
+    this.service.saveChanges();
+  }
 
   openAddIngredients(): void {
     this.dialog.open(AddIngredientsComponent);

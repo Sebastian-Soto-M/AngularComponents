@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ICartIngredient } from 'src/app/entities/cart-ingredient.model';
 import { CartIngredientService } from 'src/app/service/cart-ingredient.service';
+import { CurrentCartService } from 'src/app/service/current-cart.service';
 import { RemoveIngredientComponent } from '../../dialog/remove-ingredient/remove-ingredient.component';
 
 @Component({
@@ -12,10 +13,7 @@ import { RemoveIngredientComponent } from '../../dialog/remove-ingredient/remove
 export class ItemComponent implements OnInit {
   @Input() ci!: ICartIngredient;
 
-  constructor(
-    private dialog: MatDialog,
-    private ciService: CartIngredientService
-  ) {}
+  constructor(private dialog: MatDialog, private service: CurrentCartService) {}
 
   ngOnInit(): void {}
 
@@ -26,7 +24,7 @@ export class ItemComponent implements OnInit {
       data: this.ci,
     });
     dialogRef.afterClosed().subscribe((response) => {
-      if (response) console.error('Remove item...');
+      if (response) this.service.deleteCartIngredient(response);
     });
   }
 
