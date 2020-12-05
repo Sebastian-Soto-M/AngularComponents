@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ICartIngredient } from 'src/app/entities/cart-ingredient.model';
-import { CartIngredientService } from 'src/app/service/cart-ingredient.service';
 import { CurrentCartService } from 'src/app/service/current-cart.service';
 import { RemoveIngredientComponent } from '../../dialog/remove-ingredient/remove-ingredient.component';
 

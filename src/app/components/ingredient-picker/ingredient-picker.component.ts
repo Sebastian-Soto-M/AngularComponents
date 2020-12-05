@@ -42,6 +42,9 @@ export class IngredientPickerComponent implements OnInit {
         id: item.ingredient.id,
         name: item.ingredient.name,
         amount: item.amount,
+        image: item.ingredient.image,
+        unitAbbrev: item.ingredient.unitAbbrev,
+        cartHasIngredientId: null,
         status: Status.PENDING.toUpperCase() as Status,
       });
     });

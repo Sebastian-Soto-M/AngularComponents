@@ -24,8 +24,7 @@ export class CurrentCartService {
   constructor(
     private cartIngredientService: CartIngredientService,
     private chiService: CartHasIngredientService,
-    private iService: IngredientService,
-    private cartService: CartService
+    private iService: IngredientService
   ) {}
 
   deleteCartIngredient(ci: ICartIngredient): void {
@@ -75,6 +74,22 @@ export class CurrentCartService {
     forkJoin(queries).subscribe();
   }
 
+  addIngredients(ingredientList: ICartIngredient[]): void {
+    ingredientList.forEach((ing) => {
+      const chi = {
+        amount: ing.amount,
+        status: ing.status,
+        cartId: this.cart.id,
+        ingredientName: ing.name,
+        ingredientId: ing.id,
+      };
+      this.changes.push(this.chiService.create(chi));
+      const info = this.cartIngredientService.map(ing, chi);
+      this.ci$.next(info);
+      this.hasChanges$.next();
+    });
+  }
+
   saveChanges(): void {
     const obs = forkJoin(this.changes);
     obs.subscribe();
@@ -89,9 +104,11 @@ export class CurrentCartService {
   }
 
   initTasks(): void {
-    this.ci$.subscribe(() => {
-      console.log('ci updated');
+    this.ci$.subscribe((item) => {
       this.stats$.next(this.getFraction());
+      if (item) {
+        this.ci.push(item);
+      }
     });
   }
 }

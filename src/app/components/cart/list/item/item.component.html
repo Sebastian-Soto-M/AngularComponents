@@ -13,8 +13,13 @@
     <button mat-icon-button (click)="info()">
         <mat-icon color="primary">info</mat-icon>
     </button>
-    <button mat-icon-button [ngSwitch]="ci.status" (click)="toggle()">
-        <mat-icon *ngSwitchCase="'ACTIVE'" color="accent"> check_box </mat-icon>
+    <button
+        mat-icon-button
+        [ngSwitch]="ci.status"
+        (click)="toggle()"
+        [disabled]="!(ci.cartHasIngredientId > 0)"
+    >
+        <mat-icon *ngSwitchCase="'ACTIVE'" color="accent">check_box</mat-icon>
         <mat-icon *ngSwitchDefault>check_box_outline_blank</mat-icon>
     </button>
 </mat-list-item>
