@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ICartIngredient } from 'src/app/entities/cart-ingredient.model';
 import { CurrentCartService } from 'src/app/service/current-cart.service';
@@ -11,10 +12,14 @@ import { RemoveIngredientComponent } from '../../dialog/remove-ingredient/remove
 })
 export class ItemComponent implements OnInit {
   @Input() ci!: ICartIngredient;
+  @Output() itemToggled = new EventEmitter<ICartIngredient>();
+  isAvailable: boolean;
 
   constructor(private dialog: MatDialog, private service: CurrentCartService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.isAvailable = !(this.ci.cartHasIngredientId > 0);
+  }
 
   delete(): void {
     const dialogRef = this.dialog.open(RemoveIngredientComponent, {
@@ -31,5 +36,6 @@ export class ItemComponent implements OnInit {
 
   toggle(): void {
     this.service.toggleCartIngredientStatus(this.ci);
+    this.itemToggled.emit(this.ci);
   }
 }

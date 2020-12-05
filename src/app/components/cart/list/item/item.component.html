@@ -17,7 +17,9 @@
         mat-icon-button
         [ngSwitch]="ci.status"
         (click)="toggle()"
-        [disabled]="!(ci.cartHasIngredientId > 0)"
+        [disabled]="isAvailable"
+        matTooltip="You must save changes to edit this item"
+        [matTooltipDisabled]="!isAvailable"
     >
         <mat-icon *ngSwitchCase="'ACTIVE'" color="accent">check_box</mat-icon>
         <mat-icon *ngSwitchDefault>check_box_outline_blank</mat-icon>

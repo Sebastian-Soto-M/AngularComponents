@@ -64,6 +64,9 @@ export class CurrentCartService {
               obs.subscribe((x) => {
                 this.ci.push(x);
                 this.stats$.next(this.getFraction());
+                this.ci.sort((a: ICartIngredient, b: ICartIngredient) => {
+                  return a.name.localeCompare(b.name);
+                });
               });
               queries.push(obs);
             }
@@ -76,13 +79,7 @@ export class CurrentCartService {
 
   addIngredients(ingredientList: ICartIngredient[]): void {
     ingredientList.forEach((ing) => {
-      const chi = {
-        amount: ing.amount,
-        status: ing.status,
-        cartId: this.cart.id,
-        ingredientName: ing.name,
-        ingredientId: ing.id,
-      };
+      const chi = this.chiService.map(ing, this.cart.id);
       this.changes.push(this.chiService.create(chi));
       const info = this.cartIngredientService.map(ing, chi);
       this.ci$.next(info);
@@ -95,20 +92,30 @@ export class CurrentCartService {
     obs.subscribe();
   }
 
+  updateCartIngredientAmount(ci: ICartIngredient): void {
+    this.changes.push(this.chiService.update(ci));
+    this.ci$.next(ci);
+    this.hasChanges$.next();
+  }
+
+  initTasks(): void {
+    this.ci$.subscribe((item) => {
+      this.setStats();
+      if (item) {
+        this.ci.push(item);
+      }
+    });
+  }
+
+  setStats(): void {
+    this.stats$.next(this.getFraction());
+  }
+
   private getFraction(): string {
     return `${
       this.ci.filter((x) => {
         return x.status.toUpperCase() === 'ACTIVE';
       }).length
     }/${this.ci.length}`;
-  }
-
-  initTasks(): void {
-    this.ci$.subscribe((item) => {
-      this.stats$.next(this.getFraction());
-      if (item) {
-        this.ci.push(item);
-      }
-    });
   }
 }
