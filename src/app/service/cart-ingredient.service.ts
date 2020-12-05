@@ -23,6 +23,7 @@ export class CartIngredientService {
   }
 
   update(ci: ICartIngredient): Observable<HttpResponse<ICartHasIngredient>> {
+    console.log(ci);
     return this.chiService.update(this.unmap(ci));
   }
 
@@ -33,11 +34,11 @@ export class CartIngredientService {
       ci.status !== Status.PENDING.toUpperCase()
         ? (Status.PENDING.toUpperCase() as Status)
         : (Status.ACTIVE.toUpperCase() as Status);
-    return [ci, this.chiService.update(ci)];
+    return [ci, this.chiService.update(this.unmap(ci))];
   }
 
   delete(ci: ICartIngredient): Observable<HttpResponse<ICartHasIngredient>> {
-    return this.chiService.delete(ci.id);
+    return this.chiService.delete(ci.cartHasIngredientId);
   }
 
   map(i: IIngredient, chi: ICartHasIngredient): ICartIngredient {
@@ -49,12 +50,14 @@ export class CartIngredientService {
       imageContentType: i.imageContentType,
       unitAbbrev: i.unitAbbrev,
       cartId: chi.cartId,
+      cartHasIngredientId: chi.id,
       status: chi.status,
     };
   }
 
   unmap(ci: ICartIngredient): ICartHasIngredient {
     return {
+      id: ci.cartHasIngredientId,
       amount: ci.amount,
       status: ci.status,
       cartId: ci.cartId,

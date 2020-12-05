@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ICartIngredient } from 'src/app/entities/cart-ingredient.model';
 import { CurrentCartService } from 'src/app/service/current-cart.service';
@@ -38,7 +45,6 @@ export class ListComponent implements OnInit {
     const statusList = this.visibility ? ['PENDING', 'ACTIVE'] : ['PENDING'];
     return lst
       .filter((x) => {
-        console.warn(x);
         return statusList.includes(x.status.toUpperCase());
       })
       .sort((a: any, b: any) => {

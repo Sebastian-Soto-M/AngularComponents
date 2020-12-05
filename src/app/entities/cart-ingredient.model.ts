@@ -3,6 +3,7 @@ import { Status } from '../status.enum';
 export interface ICartIngredient {
   id?: number;
   cartId?: number;
+  cartHasIngredientId?: number;
   amount?: number;
   name?: string;
   unitAbbrev?: string;
@@ -15,6 +16,7 @@ export class CartIngredient implements ICartIngredient {
   constructor(
     public id?: number,
     public cartId?: number,
+    public cartHasIngredientId?: number,
     public amount?: number,
     public name?: string,
     public unitAbbrev?: string,

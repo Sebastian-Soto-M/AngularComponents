@@ -1,7 +1,7 @@
 <mat-card class="mat-elevation-z2" tabindex="-1">
     <mat-card-title-group>
         <mat-card-title>Cart</mat-card-title>
-        <mat-card-subtitle>Created yesterday</mat-card-subtitle>
+        <mat-card-subtitle>{{ service.cartInfo$ | async }}</mat-card-subtitle>
         <!-- right corner menu -->
         <button
             mat-icon-button
@@ -47,7 +47,15 @@
             >
                 Add Ingredients
             </button>
-            <button mat-raised-button [disabled]="true" color="accent">
+            <button
+                mat-raised-button
+                [disabled]="changes === 0"
+                color="accent"
+                [matTooltipDisabled]="changes > 0"
+                matTooltip="There must be changes to save"
+                [matBadge]="changes"
+                (click)="saveCart()"
+            >
                 Save Changes
             </button>
         </div>

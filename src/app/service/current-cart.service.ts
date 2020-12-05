@@ -18,7 +18,7 @@ export class CurrentCartService {
   cartInfo$: Observable<string>;
   stats$ = new BehaviorSubject<string>('0/0');
   ci$ = new Subject<ICartIngredient>();
-  hasChanges = false;
+  hasChanges$ = new Subject();
   changes: Observable<HttpResponse<ICartHasIngredient>>[] = [];
 
   constructor(
@@ -30,11 +30,18 @@ export class CurrentCartService {
 
   deleteCartIngredient(ci: ICartIngredient): void {
     this.changes.push(this.cartIngredientService.delete(ci));
+    this.hasChanges$.next();
     this.ci.splice(
       this.ci.findIndex((x) => x.id === ci.id),
       1
     );
     this.ci$.next();
+  }
+
+  toggleCartIngredientStatus(ci: ICartIngredient): void {
+    const updt = this.cartIngredientService.toggleStatus(ci);
+    this.changes.push(updt[1]);
+    this.hasChanges$.next();
   }
 
   setCart(c: ICart): void {
@@ -45,11 +52,6 @@ export class CurrentCartService {
       }, 1000);
     });
     this.setCartIngredients();
-  }
-
-  unsubscribe(): void {
-    this.ci$.unsubscribe();
-    this.stats$.unsubscribe();
   }
 
   setCartIngredients(): void {
@@ -74,7 +76,8 @@ export class CurrentCartService {
   }
 
   saveChanges(): void {
-    forkJoin(this.changes).subscribe();
+    const obs = forkJoin(this.changes);
+    obs.subscribe();
   }
 
   private getFraction(): string {
@@ -85,7 +88,7 @@ export class CurrentCartService {
     }/${this.ci.length}`;
   }
 
-  private initTasks(): void {
+  initTasks(): void {
     this.ci$.subscribe(() => {
       console.log('ci updated');
       this.stats$.next(this.getFraction());

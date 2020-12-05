@@ -30,5 +30,7 @@ export class ItemComponent implements OnInit {
 
   info(): void {}
 
-  toggle(): void {}
+  toggle(): void {
+    this.service.toggleCartIngredientStatus(this.ci);
+  }
 }
