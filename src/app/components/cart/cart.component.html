@@ -21,6 +21,13 @@
                         >Hide selected items</span
                     >
                 </button>
+                <button
+                    mat-menu-item
+                    (click)="visibilityAll$.next(visibilityAll$.value)"
+                >
+                    <mat-icon>sort</mat-icon>
+                    <span>Sort by status</span>
+                </button>
                 <button mat-menu-item disabled>
                     <mat-icon>history</mat-icon>
                     <span>History (Coming soon)</span>
