@@ -3,6 +3,7 @@ import { Component, Input, OnInit, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ICartIngredient } from 'src/app/entities/cart-ingredient.model';
 import { CurrentCartService } from 'src/app/service/current-cart.service';
+import { InfoIngredientComponent } from '../../dialog/info-ingredient/info-ingredient.component';
 import { RemoveIngredientComponent } from '../../dialog/remove-ingredient/remove-ingredient.component';
 
 @Component({
@@ -32,7 +33,11 @@ export class ItemComponent implements OnInit {
     });
   }
 
-  info(): void {}
+  info(): void {
+    const dialogRef = this.dialog.open(InfoIngredientComponent, {
+      data: this.ci,
+    });
+  }
 
   toggle(): void {
     this.service.toggleCartIngredientStatus(this.ci);

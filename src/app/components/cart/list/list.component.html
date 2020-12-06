@@ -3,6 +3,7 @@
         <app-cart-list-item
             *ngFor="let item of civ"
             [ci]="item"
+            (itemToggled)="checkVisibility($event)"
         ></app-cart-list-item>
     </div>
     <div *ngSwitchCase="service.ci.length === 0">

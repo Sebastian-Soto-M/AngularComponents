@@ -816,92 +816,51 @@
   ],
   "cart-has-ingredients": [
     {
-      "id": 2,
-      "amount": 100,
-      "status": "PENDING",
-      "cartId": 1,
-      "ingredientName": "neque",
-      "ingredientId": 2
-    },
-    {
-      "id": 4,
-      "amount": 300,
-      "status": "PENDING",
-      "cartId": 1,
-      "ingredientName": "pariatur",
-      "ingredientId": 4
-    },
-    {
       "id": 5,
-      "amount": 1,
-      "status": "PENDING",
+      "amount": 2,
+      "status": "ACTIVE",
       "cartId": 1,
       "ingredientName": "accusantium",
       "ingredientId": 37
     },
     {
       "id": 6,
-      "amount": 200,
+      "amount": 20,
       "status": "PENDING",
       "cartId": 1,
       "ingredientName": "aut",
       "ingredientId": 8
     },
     {
+      "id": 7,
       "amount": 1,
       "status": "PENDING",
       "cartId": 1,
       "ingredientName": "quo",
-      "ingredientId": 34,
-      "id": 7
+      "ingredientId": 34
     },
     {
+      "id": 8,
       "amount": 1,
-      "status": "PENDING",
+      "status": "ACTIVE",
       "cartId": 1,
       "ingredientName": "quos",
-      "ingredientId": 17,
-      "id": 8
+      "ingredientId": 17
     },
     {
+      "id": 10,
       "amount": 1,
-      "status": "PENDING",
-      "cartId": 1,
-      "ingredientName": "recusandae",
-      "ingredientId": 23,
-      "id": 9
-    },
-    {
-      "amount": 1,
-      "status": "PENDING",
+      "status": "ACTIVE",
       "cartId": 1,
       "ingredientName": "repellendus",
-      "ingredientId": 39,
-      "id": 10
+      "ingredientId": 39
     },
     {
+      "id": 14,
       "amount": 1,
-      "status": "PENDING",
-      "cartId": 1,
-      "ingredientName": "sed",
-      "ingredientId": 3,
-      "id": 11
-    },
-    {
-      "amount": 1,
-      "status": "PENDING",
-      "cartId": 1,
-      "ingredientName": "sed",
-      "ingredientId": 15,
-      "id": 12
-    },
-    {
-      "amount": 1,
-      "status": "PENDING",
-      "cartId": 1,
-      "ingredientName": "sint",
-      "ingredientId": 31,
-      "id": 13
+      "status": "ACTIVE",
+      "ingredientName": "distinctio",
+      "ingredientId": 22
     }
   ],
   "cart-has-recipes": [

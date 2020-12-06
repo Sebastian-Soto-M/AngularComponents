@@ -78,10 +78,10 @@ export class CurrentCartService {
   }
 
   addIngredients(ingredientList: ICartIngredient[]): void {
-    ingredientList.forEach((ing) => {
-      const chi = this.chiService.map(ing, this.cart.id);
+    ingredientList.forEach((ci) => {
+      const chi = this.chiService.map(ci);
       this.changes.push(this.chiService.create(chi));
-      const info = this.cartIngredientService.map(ing, chi);
+      const info = this.cartIngredientService.map(ci, chi);
       this.ci$.next(info);
       this.hasChanges$.next();
     });
@@ -93,8 +93,7 @@ export class CurrentCartService {
   }
 
   updateCartIngredientAmount(ci: ICartIngredient): void {
-    this.changes.push(this.chiService.update(ci));
-    this.ci$.next(ci);
+    this.changes.push(this.chiService.update(this.chiService.map(ci)));
     this.hasChanges$.next();
   }
 

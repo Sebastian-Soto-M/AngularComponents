@@ -6,6 +6,8 @@ import { SERVER_API_URL } from '../app.constants';
 import { ICartHasIngredient } from '../entities/cart-has-ingredient.model';
 import { createRequestOption } from '../util/request-util';
 import { IngredientService } from './ingredient.service';
+import { IIngredient } from '../entities/ingredient.model';
+import { ICartIngredient } from '../entities/cart-ingredient.model';
 
 type EntityResponseType = HttpResponse<ICartHasIngredient>;
 type EntityArrayResponseType = HttpResponse<ICartHasIngredient[]>;
@@ -62,5 +64,16 @@ export class CartHasIngredientService {
       params: options,
       observe: 'response',
     });
+  }
+
+  map(i: ICartIngredient): ICartHasIngredient {
+    return {
+      id: i.cartHasIngredientId,
+      amount: i.amount,
+      status: i.status,
+      cartId: i.cartId,
+      ingredientName: i.name,
+      ingredientId: i.id,
+    };
   }
 }
