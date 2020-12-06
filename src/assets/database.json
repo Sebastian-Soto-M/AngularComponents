@@ -816,51 +816,39 @@
   ],
   "cart-has-ingredients": [
     {
-      "id": 5,
-      "amount": 2,
+      "id": 15,
+      "amount": 3,
       "status": "ACTIVE",
-      "cartId": 1,
       "ingredientName": "accusantium",
       "ingredientId": 37
     },
     {
-      "id": 6,
-      "amount": 20,
-      "status": "PENDING",
-      "cartId": 1,
-      "ingredientName": "aut",
-      "ingredientId": 8
+      "id": 17,
+      "amount": 4,
+      "status": "ACTIVE",
+      "ingredientName": "suscipit",
+      "ingredientId": 24
     },
     {
-      "id": 7,
-      "amount": 1,
-      "status": "PENDING",
-      "cartId": 1,
-      "ingredientName": "quo",
-      "ingredientId": 34
-    },
-    {
-      "id": 8,
+      "id": 18,
       "amount": 1,
       "status": "ACTIVE",
-      "cartId": 1,
+      "ingredientName": "ad",
+      "ingredientId": 28
+    },
+    {
+      "id": 19,
+      "amount": 50,
+      "status": "ACTIVE",
       "ingredientName": "quos",
       "ingredientId": 17
     },
     {
-      "id": 10,
-      "amount": 1,
+      "id": 20,
+      "amount": 2,
       "status": "ACTIVE",
-      "cartId": 1,
-      "ingredientName": "repellendus",
-      "ingredientId": 39
-    },
-    {
-      "id": 14,
-      "amount": 1,
-      "status": "ACTIVE",
-      "ingredientName": "distinctio",
-      "ingredientId": 22
+      "ingredientName": "vero",
+      "ingredientId": 32
     }
   ],
   "cart-has-recipes": [

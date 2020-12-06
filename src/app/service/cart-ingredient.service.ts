@@ -23,7 +23,6 @@ export class CartIngredientService {
   }
 
   update(ci: ICartIngredient): Observable<HttpResponse<ICartHasIngredient>> {
-    console.log(ci);
     return this.chiService.update(this.unmap(ci));
   }
 
