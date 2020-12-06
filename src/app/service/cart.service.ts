@@ -1,51 +1,47 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 import * as moment from 'moment';
 
-import { SERVER_API_URL } from '../app.constants';
-import { ICart } from '../entities/cart.model';
-import { createRequestOption } from '../util/request-util';
+import {SERVER_API_URL} from '../app.constants';
+import {ICart} from '../entities/cart.model';
+import {createRequestOption} from '../util/request-util';
 
 type EntityResponseType = HttpResponse<ICart>;
 type EntityArrayResponseType = HttpResponse<ICart[]>;
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class CartService {
   public resourceUrl = SERVER_API_URL + 'api/carts';
 
-  constructor(protected http: HttpClient) {}
+  constructor(protected http: HttpClient) {
+  }
 
   create(cart: ICart): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(cart);
-    return this.http
-      .post<ICart>(this.resourceUrl, copy, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+    return this.http.post<ICart>(this.resourceUrl, copy, {observe: 'response'}).
+      pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
   update(cart: ICart): Observable<EntityResponseType> {
     const copy = this.convertDateFromClient(cart);
-    return this.http
-      .put<ICart>(this.resourceUrl, copy, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+    return this.http.put<ICart>(this.resourceUrl, copy, {observe: 'response'}).
+      pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
   find(id: number): Observable<EntityResponseType> {
-    return this.http
-      .get<ICart>(`${this.resourceUrl}/${id}`, { observe: 'response' })
-      .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
+    return this.http.get<ICart>(`${this.resourceUrl}/${id}`, {observe: 'response'}).
+      pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
   query(req?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
-    return this.http
-      .get<ICart[]>(this.resourceUrl, { params: options, observe: 'response' })
-      .pipe(
-        map((res: EntityArrayResponseType) =>
-          this.convertDateArrayFromServer(res)
-        )
-      );
+    return this.http.get<ICart[]>(this.resourceUrl, {params: options, observe: 'response'}).pipe(
+      map((res: EntityArrayResponseType) =>
+        this.convertDateArrayFromServer(res)
+      )
+    );
   }
 
   delete(id: number): Observable<HttpResponse<{}>> {

@@ -1,22 +1,21 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
-import { SERVER_API_URL } from '../app.constants';
-import { ICartHasIngredient } from '../entities/cart-has-ingredient.model';
-import { createRequestOption } from '../util/request-util';
-import { IngredientService } from './ingredient.service';
-import { IIngredient } from '../entities/ingredient.model';
-import { ICartIngredient } from '../entities/cart-ingredient.model';
+import {SERVER_API_URL} from '../app.constants';
+import {ICartHasIngredient} from '../entities/cart-has-ingredient.model';
+import {createRequestOption} from '../util/request-util';
+import {ICartIngredient} from '../entities/cart-ingredient.model';
 
 type EntityResponseType = HttpResponse<ICartHasIngredient>;
 type EntityArrayResponseType = HttpResponse<ICartHasIngredient[]>;
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class CartHasIngredientService {
   public resourceUrl = SERVER_API_URL + 'api/cart-has-ingredients';
 
-  constructor(protected http: HttpClient) {}
+  constructor(protected http: HttpClient) {
+  }
 
   create(
     cartHasIngredient: ICartHasIngredient
@@ -24,7 +23,7 @@ export class CartHasIngredientService {
     return this.http.post<ICartHasIngredient>(
       this.resourceUrl,
       cartHasIngredient,
-      { observe: 'response' }
+      {observe: 'response'}
     );
   }
 
@@ -34,7 +33,7 @@ export class CartHasIngredientService {
     return this.http.put<ICartHasIngredient>(
       `${this.resourceUrl}/${cartHasIngredient.id}`,
       cartHasIngredient,
-      { observe: 'response' }
+      {observe: 'response'}
     );
   }
 
@@ -59,7 +58,7 @@ export class CartHasIngredientService {
   }
 
   findByCart(cartId: number): Observable<EntityArrayResponseType> {
-    const options = createRequestOption({ ...{ 'cartId.equals': cartId } });
+    const options = createRequestOption({...{'cartId.equals': cartId}});
     return this.http.get<ICartHasIngredient[]>(this.resourceUrl, {
       params: options,
       observe: 'response',

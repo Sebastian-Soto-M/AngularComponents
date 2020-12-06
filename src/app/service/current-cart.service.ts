@@ -1,13 +1,12 @@
-import { HttpResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, forkJoin, Observable, of, Subject } from 'rxjs';
-import { ICartHasIngredient } from '../entities/cart-has-ingredient.model';
-import { ICartIngredient } from '../entities/cart-ingredient.model';
-import { ICart } from '../entities/cart.model';
-import { CartHasIngredientService } from './cart-has-ingredient.service';
-import { CartIngredientService } from './cart-ingredient.service';
-import { CartService } from './cart.service';
-import { IngredientService } from './ingredient.service';
+import {HttpResponse} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, forkJoin, Observable, of, Subject} from 'rxjs';
+import {ICartHasIngredient} from '../entities/cart-has-ingredient.model';
+import {ICartIngredient} from '../entities/cart-ingredient.model';
+import {ICart} from '../entities/cart.model';
+import {CartHasIngredientService} from './cart-has-ingredient.service';
+import {CartIngredientService} from './cart-ingredient.service';
+import {IngredientService} from './ingredient.service';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +24,8 @@ export class CurrentCartService {
     private ciService: CartIngredientService,
     private chiService: CartHasIngredientService,
     private iService: IngredientService
-  ) {}
+  ) {
+  }
 
   deleteCartIngredient(ci: ICartIngredient): void {
     this.changes.push(this.ciService.delete(ci));
@@ -60,7 +60,7 @@ export class CurrentCartService {
         response.body.forEach((chi) => {
           this.iService.find(chi.ingredientId).subscribe((ing) => {
             if (ing.body !== null) {
-              let obs = of(this.ciService.map(ing.body, chi));
+              const obs = of(this.ciService.map(ing.body, chi));
               obs.subscribe((x) => {
                 this.ci.push(x);
                 this.stats$.next(this.getFraction());
@@ -81,6 +81,8 @@ export class CurrentCartService {
     ciList.forEach((ci) => {
       const current = this.ci.find((fci) => fci.id === ci.id);
       if (current) {
+        current.amount = current.amount + ci.amount;
+        console.warn(current);
         this.changes.push(this.ciService.update(current));
         this.ci$.next(ci);
       } else {
@@ -104,12 +106,8 @@ export class CurrentCartService {
   initTasks(): void {
     this.ci$.subscribe((ci) => {
       this.setStats();
-      if (ci) {
-        const current = this.ci.find((ci) => ci.id === ci.id);
-        if (current) {
-          current.amount = current.amount + ci.amount;
-          console.warn(current);
-        } else this.ci.push(ci);
+      if (ci && !this.ci.find((fci) => fci.id === ci.id)) {
+        this.ci.push(ci);
       }
     });
   }

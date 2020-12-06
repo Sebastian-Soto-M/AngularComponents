@@ -1,9 +1,9 @@
 <mat-list [ngSwitch]="civ.length > 0">
     <div *ngSwitchCase="true">
         <app-cart-list-item
+            (itemToggled)="checkVisibility($event)"
             *ngFor="let item of civ"
             [ci]="item"
-            (itemToggled)="checkVisibility($event)"
         ></app-cart-list-item>
     </div>
     <div *ngSwitchCase="service.ci.length === 0">

@@ -2,13 +2,13 @@
     Do you wish to remove <i color="accent">{{ data.name }}</i> from your cart?
 </div>
 <mat-divider></mat-divider>
-<div mat-dialog-actions align="center">
+<div align="center" mat-dialog-actions>
     <button mat-button mat-dialog-close>No</button>
     <button
-        mat-raised-button
-        color="primary"
-        cdkFocusInitial
         [mat-dialog-close]="data"
+        cdkFocusInitial
+        color="primary"
+        mat-raised-button
     >
         Yes
     </button>

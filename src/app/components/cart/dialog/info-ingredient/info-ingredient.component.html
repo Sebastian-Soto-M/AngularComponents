@@ -1,9 +1,9 @@
 <mat-card class="mat-elevation-z0" style="padding: 0px">
     <div fxLayout="row" fxLayoutAlign="space-between none">
         <div
+            fxFlex
             fxLayout="row"
             fxLayoutAlign="start none"
-            fxFlex
             fxLayoutGap="16px"
         >
             <img
@@ -23,16 +23,16 @@
                 </mat-card-subtitle>
             </div>
         </div>
-        <button mat-icon-button [ngSwitch]="data.status" disabled>
+        <button [ngSwitch]="data.status" disabled mat-icon-button>
             <mat-icon *ngSwitchCase="'ACTIVE'">check_box</mat-icon>
             <mat-icon *ngSwitchDefault>check_box_outline_blank</mat-icon>
         </button>
     </div>
     <mat-card-content
-        mat-dialog-content
         [formGroup]="form"
         fxLayout="row"
         fxLayoutAlign="space-between start"
+        mat-dialog-content
     >
         <div>
             <h1>Recipes</h1>
@@ -73,18 +73,18 @@
                         "
                     >
                         <small *ngIf="form.get('amount')?.errors?.required"
-                            >An amount is required</small
+                        >An amount is required</small
                         >
 
                         <small *ngIf="form.get('amount')?.errors?.min"
-                            >The value must be greater than 1</small
+                        >The value must be greater than 1</small
                         >
                     </mat-error>
                 </mat-form-field>
             </form>
         </div>
     </mat-card-content>
-    <mat-card-actions mat-dialog-actions align="end">
+    <mat-card-actions align="end" mat-dialog-actions>
         <button mat-button mat-dialog-close>Cancel</button>
         <button
             (click)="updateAmount()"

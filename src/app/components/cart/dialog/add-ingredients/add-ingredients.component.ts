@@ -1,7 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
-import { IngredientPickerComponent } from 'src/app/components/ingredient-picker/ingredient-picker.component';
-import { CurrentCartService } from 'src/app/service/current-cart.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatDialogRef} from '@angular/material/dialog';
+import {IngredientPickerComponent} from 'src/app/components/ingredient-picker/ingredient-picker.component';
+import {CurrentCartService} from 'src/app/service/current-cart.service';
 
 @Component({
   selector: 'app-add-ingredients',
@@ -14,9 +14,11 @@ export class AddIngredientsComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<AddIngredientsComponent>,
     public service: CurrentCartService
-  ) {}
+  ) {
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   addIngredientsToCart(): void {
     this.service.addIngredients(this.ingredientPicker.getCartIngredients());

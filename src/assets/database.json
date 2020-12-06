@@ -817,7 +817,7 @@
   "cart-has-ingredients": [
     {
       "id": 15,
-      "amount": 3,
+      "amount": 24,
       "status": "ACTIVE",
       "ingredientName": "accusantium",
       "ingredientId": 37

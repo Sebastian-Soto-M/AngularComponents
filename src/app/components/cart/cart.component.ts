@@ -1,12 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { BehaviorSubject } from 'rxjs';
-import { Account } from 'src/app/entities/account.model';
-import { ICart } from 'src/app/entities/cart.model';
-import { CartService } from 'src/app/service/cart.service';
-import { CurrentCartService } from 'src/app/service/current-cart.service';
-import { Status } from 'src/app/status.enum';
-import { AddIngredientsComponent } from './dialog/add-ingredients/add-ingredients.component';
+import {Component, Input, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {BehaviorSubject} from 'rxjs';
+import {Account} from 'src/app/entities/account.model';
+import {ICart} from 'src/app/entities/cart.model';
+import {CartService} from 'src/app/service/cart.service';
+import {CurrentCartService} from 'src/app/service/current-cart.service';
+import {Status} from 'src/app/status.enum';
+import {AddIngredientsComponent} from './dialog/add-ingredients/add-ingredients.component';
 
 @Component({
   selector: 'app-cart',
@@ -31,18 +31,22 @@ export class CartComponent implements OnInit {
     public cartService: CartService,
     public service: CurrentCartService,
     public dialog: MatDialog
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.service.stats$.subscribe((x) => (this.stats = x));
     this.service.hasChanges$.subscribe(
       () => (this.changes = this.service.changes.length)
     );
-    if (this.service.cart === undefined) this.initializeCart();
+    if (this.service.cart === undefined) {
+      this.initializeCart();
+    }
     this.service.initTasks();
   }
 
-  closeCart(): void {}
+  closeCart(): void {
+  }
 
   saveCart(): void {
     this.service.saveChanges();
@@ -57,11 +61,9 @@ export class CartComponent implements OnInit {
   }
 
   private initializeCart(): void {
-    this.cartService
-      .query({ ...{ 'userLogin.equals': this.account.login } })
-      .subscribe((response) => {
-        this.service.setCart(response.body[0]);
-        this.requesting = false;
-      });
+    this.cartService.query({...{'userLogin.equals': this.account.login}}).subscribe((response) => {
+      this.service.setCart(response.body[0]);
+      this.requesting = false;
+    });
   }
 }

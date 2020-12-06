@@ -1,8 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ICartIngredient } from 'src/app/entities/cart-ingredient.model';
-import { CurrentCartService } from 'src/app/service/current-cart.service';
+import {Component, Inject, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
+import {ICartIngredient} from 'src/app/entities/cart-ingredient.model';
+import {CurrentCartService} from 'src/app/service/current-cart.service';
 
 @Component({
   selector: 'app-info-ingredient',
@@ -17,7 +17,8 @@ export class InfoIngredientComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: ICartIngredient,
     public service: CurrentCartService,
     private fb: FormBuilder
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     this.form = this.fb.group({

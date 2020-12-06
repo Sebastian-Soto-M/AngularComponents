@@ -1,10 +1,9 @@
-import { EventEmitter } from '@angular/core';
-import { Component, Input, OnInit, Output } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { ICartIngredient } from 'src/app/entities/cart-ingredient.model';
-import { CurrentCartService } from 'src/app/service/current-cart.service';
-import { InfoIngredientComponent } from '../../dialog/info-ingredient/info-ingredient.component';
-import { RemoveIngredientComponent } from '../../dialog/remove-ingredient/remove-ingredient.component';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {ICartIngredient} from 'src/app/entities/cart-ingredient.model';
+import {CurrentCartService} from 'src/app/service/current-cart.service';
+import {InfoIngredientComponent} from '../../dialog/info-ingredient/info-ingredient.component';
+import {RemoveIngredientComponent} from '../../dialog/remove-ingredient/remove-ingredient.component';
 
 @Component({
   selector: 'app-cart-list-item',
@@ -16,7 +15,8 @@ export class ItemComponent implements OnInit {
   @Output() itemToggled = new EventEmitter<ICartIngredient>();
   isAvailable: boolean;
 
-  constructor(private dialog: MatDialog, private service: CurrentCartService) {}
+  constructor(private dialog: MatDialog, private service: CurrentCartService) {
+  }
 
   ngOnInit(): void {
     this.isAvailable = !(this.ci.cartHasIngredientId > 0);

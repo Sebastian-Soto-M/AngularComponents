@@ -1,29 +1,33 @@
-import { HttpResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, of } from 'rxjs';
-import { ICartHasIngredient } from '../entities/cart-has-ingredient.model';
-import { ICartIngredient } from '../entities/cart-ingredient.model';
-import { IIngredient } from '../entities/ingredient.model';
-import { Status } from '../status.enum';
-import { CartHasIngredientService } from './cart-has-ingredient.service';
-import { IngredientService } from './ingredient.service';
+import {HttpResponse} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {ICartHasIngredient} from '../entities/cart-has-ingredient.model';
+import {ICartIngredient} from '../entities/cart-ingredient.model';
+import {IIngredient} from '../entities/ingredient.model';
+import {Status} from '../status.enum';
+import {CartHasIngredientService} from './cart-has-ingredient.service';
+import {IngredientService} from './ingredient.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CartIngredientService {
   ci: ICartIngredient[] = [];
+
   constructor(
     private chiService: CartHasIngredientService,
     private iService: IngredientService
-  ) {}
+  ) {
+  }
 
   create(ci: ICartIngredient): Observable<HttpResponse<ICartHasIngredient>> {
     return this.chiService.create(this.unmap(ci));
   }
 
   update(ci: ICartIngredient): Observable<HttpResponse<ICartHasIngredient>> {
-    return this.chiService.update(this.unmap(ci));
+    const chi = this.unmap(ci);
+    console.warn(chi);
+    return this.chiService.update(chi);
   }
 
   toggleStatus(

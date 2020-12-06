@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import { ICartIngredient } from 'src/app/entities/cart-ingredient.model';
-import { CurrentCartService } from 'src/app/service/current-cart.service';
+import {Component, Input, OnInit} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
+import {ICartIngredient} from 'src/app/entities/cart-ingredient.model';
+import {CurrentCartService} from 'src/app/service/current-cart.service';
 
 @Component({
   selector: 'app-cart-list',
@@ -15,7 +15,8 @@ export class ListComponent implements OnInit {
 
   civ: ICartIngredient[] = [];
 
-  constructor(public service: CurrentCartService) {}
+  constructor(public service: CurrentCartService) {
+  }
 
   ngOnInit(): void {
     this.visibilityAll$.subscribe((vis) => this.updateVisibility(vis));
@@ -24,10 +25,6 @@ export class ListComponent implements OnInit {
       this.setVisible();
       this.totalIngredients = this.service.ci.length;
     });
-  }
-
-  private setVisible(): void {
-    this.civ = this.getVisible(this.service.ci);
   }
 
   getVisible(lst: ICartIngredient[]): ICartIngredient[] {
@@ -39,8 +36,8 @@ export class ListComponent implements OnInit {
 
   sort(): void {
     this.civ.sort((a: any, b: any) => {
-      let x = a.status.toUpperCase(),
-        y = b.status.toUpperCase();
+      const x = a.status.toUpperCase();
+      const y = b.status.toUpperCase();
       return y.localeCompare(x);
     });
   }
@@ -57,5 +54,9 @@ export class ListComponent implements OnInit {
       this.civ.splice(this.civ.indexOf(ci), 1);
     }
     this.service.setStats();
+  }
+
+  private setVisible(): void {
+    this.civ = this.getVisible(this.service.ci);
   }
 }
