@@ -81,12 +81,12 @@ export class CurrentCartService {
     ciList.forEach((ci) => {
       const current = this.ci.find((fci) => fci.id === ci.id);
       if (current) {
-        ci.amount += current.amount;
-        this.changes.push(this.ciService.update(ci));
+        this.changes.push(this.ciService.update(current));
+        this.ci$.next(ci);
       } else {
         this.changes.push(this.ciService.create(ci));
+        this.ci$.next(ci);
       }
-      this.ci$.next(ci);
       this.hasChanges$.next();
     });
   }
@@ -102,13 +102,14 @@ export class CurrentCartService {
   }
 
   initTasks(): void {
-    this.ci$.subscribe((item) => {
+    this.ci$.subscribe((ci) => {
       this.setStats();
-      if (item) {
-        const current = this.ci.find((ci) => ci.id === item.id);
+      if (ci) {
+        const current = this.ci.find((ci) => ci.id === ci.id);
         if (current) {
-          current.amount += item.amount;
-        } else this.ci.push(item);
+          current.amount = current.amount + ci.amount;
+          console.warn(current);
+        } else this.ci.push(ci);
       }
     });
   }
